@@ -16,7 +16,7 @@ export interface PaymentInterface {
 
 }
 
-export interface GateWayInterface{
+export interface GateWayInterface {
     GateWayID: String,
     GateWayName: String,
     GateWayStatus: boolean,
