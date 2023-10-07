@@ -48,7 +48,7 @@ const itemData = [
         width: '210px',
         height: '330px'
     },
-    
+
 ];
 
 export default function HomeComponent() {
@@ -57,18 +57,18 @@ export default function HomeComponent() {
             <HeaderComponent></HeaderComponent>
             <SliderComponent></SliderComponent>
 
-            <Box sx={{ width: '60%', height: 450, overflowY: 'hidden', margin: '0 auto' }}>
+            {/* <Box sx={{ width: '60%', height: 450, overflowY: 'hidden', margin: '0 auto' }}>
                 <div className='home-sub-slider' style={{ overflowY: 'scroll', maxHeight: '100%', paddingRight: '16px' }}>
-                    <style>
-                        {`
-                div::-webkit-scrollbar {
+                    <style> */}
+                        {/* {` */}
+                {/* div::-webkit-scrollbar {
                     width: 0.4em;
                 }
                 div::-webkit-scrollbar-thumb {
                     background-color: rgba(0, 0, 0, 0); /* Change to your background color */
-                }
-            `}
-                    </style>
+                } 
+            {/* `} */}
+                    {/* </style>
                     <ImageList variant="masonry" cols={3} gap={8}>
                         {itemData.map((item) => (
                             <ImageListItem>
@@ -77,15 +77,14 @@ export default function HomeComponent() {
                                     src={`${item.img}`}
                                     alt={item.title}
                                     loading="lazy"
-                                    style={{width: item.width, height: item.height, margin: '10px'}}
+                                    style={{ width: item.width, height: item.height, margin: '10px' }}
                                 />
                             </ImageListItem>
                         ))}
                     </ImageList>
                 </div>
-            </Box>
+            </Box> */}
 
-            <OrderForm></OrderForm>
             <FooterComponent></FooterComponent>
         </div>
     )
