@@ -25,7 +25,7 @@ import ApiService from '../ApiAuthService';
 import { apiBaseUrl, basePonitUrl } from '../../../api/ApiConfig';
 import './Login.css'
 import { ButtonGroup, IconButton, InputAdornment } from '@mui/material';
-import { Email, Visibility, VisibilityOff } from '@mui/icons-material';
+import { Email, Height, Visibility, VisibilityOff } from '@mui/icons-material';
 
 const defaultTheme = createTheme();
 
@@ -171,7 +171,7 @@ export default function SignIn() {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 mb: -5,
-                mt: 8,
+                mt: 3,
               }}
             >
               <Typography className='name-login' component="h1" variant="h5">
@@ -183,8 +183,8 @@ export default function SignIn() {
                 aria-label="Disabled elevation buttons"
                 className='btn-group'
               >
-                <Button startIcon={<LoginIcon></LoginIcon>} onClick={() => { toggleFormLogin(); toggleFormRegister() }} variant={showRegister ? "outlined" : "contained"} sx={{ height: '40px' }} >Log In</Button>
-                <Button startIcon={<PersonIcon></PersonIcon>} onClick={() => { toggleFormLogin(); toggleFormRegister() }} variant={showLogin ? "outlined" : "contained"}>Register</Button>
+                <Button startIcon={<LoginIcon></LoginIcon>} onClick={() => { toggleFormLogin(); toggleFormRegister() }} variant={showRegister ? "outlined" : "contained"} sx={{ height: '35px' }} >Log In</Button>
+                <Button startIcon={<PersonIcon></PersonIcon>} onClick={() => { toggleFormLogin(); toggleFormRegister() }} variant={showLogin ? "outlined" : "contained" } sx={{ height: '35px' }}>Register</Button>
               </ButtonGroup>
             </Box>
             <Box
@@ -193,90 +193,93 @@ export default function SignIn() {
                 display: showRegister ? 'none' : 'flex',
                 flexDirection: 'column',
                 // alignItems: 'center',
+                //sdsd
               }}
             >
 
-              <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 1 }}>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  error={!!formErrors.email}
-                  helperText={formErrors.email}
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type={showPassword ? 'text' : 'password'}
-                  id="password"
-                  autoComplete="current-password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  error={!!formErrors.password}
-                  helperText={formErrors.password}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-                <FormControlLabel
-                  sx={{ mt: 2 }}
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 2, mb: 2, height: '50px' }}
-                >
-                  Log In
-                </Button>
-                <Button
-                  type="submit"
-                  className='btn-gg'
-                  fullWidth
-                  variant="outlined"
-                  sx={{ mt: 0, mb: 0, mr: '4%', width: '48%', height: '50px' }}
-                  startIcon={<img className='login-icon' src={GoogleIcon} alt="Image" />}
-                >
-                  Google
-                </Button>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="outlined"
-                  sx={{ mt: 0, mb: 0, width: '48%', height: '50px' }}
-                  startIcon={<img className='login-icon' src={FacebookIcon} alt="Image" />}
-                >
-                  Facebook
-                </Button>
-                <Grid item xs sx={{ mt: 5 }}>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-              </Box>
+                <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 3, width:'100%' }}>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    error={!!formErrors.email}
+                    helperText={formErrors.email}
+                    size='small'
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    autoComplete="current-password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    error={!!formErrors.password}
+                    helperText={formErrors.password}
+                    size="small"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <FormControlLabel
+                    sx={{ mt: 2 }}
+                    control={<Checkbox value="remember" color="primary" />}
+                    label="Remember me"
+                  />
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 2, mb: 2, height: '40px' }}
+                  >
+                    Log In
+                  </Button>
+                  <Button
+                    type="submit"
+                    className='btn-gg'
+                    fullWidth
+                    variant="outlined"
+                    sx={{ mt: 0, mb: 0, mr: '4%', width: '48%', height: '40px' }}
+                    startIcon={<img className='login-icon' src={GoogleIcon} alt="Image" />}
+                  >
+                    Google
+                  </Button>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="outlined"
+                    sx={{ mt: 0, mb: 0, width: '48%', height: '40px' }}
+                    startIcon={<img className='login-icon' src={FacebookIcon} alt="Image" />}
+                  >
+                    Facebook
+                  </Button>
+                  <Grid item xs sx={{ mt: 5 }}>
+                    <Link href="#" variant="body2">
+                      Forgot password?
+                    </Link>
+                  </Grid>
+                </Box>
             </Box>
           </Container>
 
