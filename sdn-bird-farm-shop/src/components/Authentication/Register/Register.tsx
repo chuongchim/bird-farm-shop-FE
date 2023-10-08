@@ -5,10 +5,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -23,6 +21,9 @@ import { Login, Visibility, VisibilityOff } from '@mui/icons-material';
 
 /** Import Css */
 import './Register.css';
+import CircularIndeterminate from '../../Common/Loading/Loading';
+import { Navigate } from 'react-router-dom';
+import { stringify } from 'querystring';
 
 const defaultTheme = createTheme();
 
@@ -35,7 +36,8 @@ export default function Register() {
     //** UseState variable */ 
     const [showPassword, setShowPassword] = React.useState(false);
     const [showConfirmPassword, setConfirmShowPassword] = React.useState(false);
-
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [isValid, setIsValid] = React.useState(false);
     const [formData, setFormData] = React.useState({
 
         firstName: "",
@@ -74,7 +76,9 @@ export default function Register() {
         if (value.length >= 20) {
             return "Frist Name must be lower than 20 character."
         }
+        setIsValid(true)
         return "";
+
     };
 
     /**
@@ -90,6 +94,7 @@ export default function Register() {
             return "Last Name must be lower than 20 character."
         }
         return "";
+        setIsValid(true)
     };
 
     /**
@@ -105,6 +110,8 @@ export default function Register() {
         } else if (!emailRegex.test(value)) {
             return "Invalid email format.";
         }
+
+        setIsValid(true)
         return "";
     };
 
@@ -125,6 +132,7 @@ export default function Register() {
             return "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.";
         }
 
+        setIsValid(true)
         return "";
     };
 
@@ -149,6 +157,7 @@ export default function Register() {
             return "Confirm password does not match."
         }
 
+        setIsValid(true)
         return "";
     };
 
@@ -166,6 +175,7 @@ export default function Register() {
             return "Please enter a valid 10-digit phone number.";
         }
 
+        setIsValid(true)
         return "";
     };
 
@@ -187,6 +197,7 @@ export default function Register() {
             return "Date of birth cannot be earlier than 1903.";
         }
 
+        setIsValid(true)
         return "";
     };
 
@@ -226,6 +237,8 @@ export default function Register() {
                                         ? validateConfirmPassword(value)
                                         : ""
 
+        if (errorMessage)
+            setIsValid(true);
         setFormErrors((prevErrors) => ({
             ...prevErrors,
             [name]: errorMessage,
@@ -251,16 +264,39 @@ export default function Register() {
         event.preventDefault();
         console.log(formData);
         console.log(apiBaseUrl);
+        
+        // /email/sendCode
+        const requestData = {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            phone: formData.phone,
+            password: formData.password,
+            gender: formData.gender,
+            dateOfBirth: formData.dateOfBirth.format('YYYY-MM-DD'),
+            address: "1",
+            role: "CUSTOMER"
+        }
+        localStorage.setItem("userRegister", JSON.stringify(requestData))
 
-        const obj = apiService.postData(baseUrl + '/register', formData);
+        const obj = apiService.postData(baseUrl + '/register', requestData);
         obj.then((res) => {
-            console.log(res);
-            localStorage.setItem("accessToken", res.token)
+            setIsLoading(true);
+            setTimeout(() => {
+                if (res) {
+                    setIsLoading(false);
+                    window.location.href = '/auth/verify'
+
+                }
+            }, 2000)
+
+
         });
     };
 
     return (
         <ThemeProvider theme={defaultTheme}>
+            {isLoading && (<CircularIndeterminate></CircularIndeterminate>)}
             <Container className={'register-form'} component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -272,7 +308,7 @@ export default function Register() {
                 >
                     <Box component="form" noValidate onSubmit={handleRegister} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={6} sx={{ height: '50px' }}>
                                 <TextField
                                     autoComplete="given-name"
                                     name="firstName"
@@ -285,6 +321,9 @@ export default function Register() {
                                     onChange={handleInputChange}
                                     error={!!formErrors.firstName}
                                     helperText={formErrors.firstName}
+                                    sx={{ height: '100%' }}
+                                    size='small'
+
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -299,6 +338,7 @@ export default function Register() {
                                     onChange={handleInputChange}
                                     error={!!formErrors.lastName}
                                     helperText={formErrors.lastName}
+                                    size='small'
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -313,6 +353,7 @@ export default function Register() {
                                     onChange={handleInputChange}
                                     error={!!formErrors.email}
                                     helperText={formErrors.email}
+                                    size='small'
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -329,6 +370,7 @@ export default function Register() {
                                     onChange={handleInputChange}
                                     error={!!formErrors.password}
                                     helperText={formErrors.password}
+                                    size='small'
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position="end">
@@ -359,6 +401,7 @@ export default function Register() {
                                     onChange={handleInputChange}
                                     error={!!formErrors.confirmPassword}
                                     helperText={formErrors.confirmPassword}
+                                    size='small'
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position="end">
@@ -384,19 +427,19 @@ export default function Register() {
                                     value={formData.gender}
                                     onChange={handleInputChange}
 
+
                                 >
                                     <FormControlLabel value={false} control={<Radio />} label="Female" />
                                     <FormControlLabel value={true} control={<Radio />} label="Male" />
                                 </RadioGroup>
                             </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <Grid item xs={12} sm={6} height='40px' sx={{ height: '40px' }} >
+                                <LocalizationProvider dateAdapter={AdapterDayjs}  >
                                     <DatePicker
                                         value={formData.dateOfBirth}
                                         onChange={handleDateChange}
                                         maxDate={dayjs()}
                                         minDate={dayjs('1920-01-01')}
-
                                     />
                                 </LocalizationProvider>
                                 {formErrors.dateOfBirth && (
@@ -417,10 +460,12 @@ export default function Register() {
                                     onChange={handleInputChange}
                                     error={!!formErrors.phone}
                                     helperText={formErrors.phone}
+                                    size='small'
                                 />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} sx={{ fontSize: '10px' }}>
                                 <FormControlLabel
+                                    sx={{ fontSize: '10px' }}
                                     control={
                                         <Checkbox
                                             name="allowExtraEmails"
@@ -436,7 +481,9 @@ export default function Register() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 2, mb: 2, height: '50px' }}
+                            sx={{ mt: 2, mb: 2, height: '40px' }}
+
+
                         >
                             Register
                         </Button>

@@ -8,6 +8,7 @@ export const basePonitUrl = {
     cart: 'cart',
     order: 'order',
     revenue: 'revenues',
+    email: 'email'
 }
 
 export const adminUrl = {
