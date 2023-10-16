@@ -1,0 +1,35 @@
+about__page-section {
+    padding: 50px 0px;
+}
+
+.about__page-content {
+    margin-top: 50px;
+}
+
+.section__description {
+    color: #7c8a97;
+    font-size: 0.9rem;
+    line-height: 30px;
+    padding-top: 20px;
+}
+
+.section__subtitle {
+    color: #000000;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+h4,
+h6 {
+    color: #000000;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+h6 {
+    font-size: 1.2rem;
+}
+
+.member {
+    margin-top: 100px;
+}
