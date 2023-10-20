@@ -17,7 +17,7 @@ function UploadImgWidget() {
   useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
     widgetRef.current = cloudinaryRef.current.createUploadWidget({
-      cloudName: "diwpadoiz",
+      cloudName: "dby2saqmn",
       uploadPreset: "chuongchim",
     }, (error, result) => {
       if (!error && result && result.event === "success") {
