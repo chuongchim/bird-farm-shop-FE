@@ -1,16 +1,21 @@
 /* styles.css */
 /* Hide the scrollbar */
- div::-webkit-scrollbar {
-    width: 0.4em;
+div::-webkit-scrollbar {
+  width: 0.4em;
 }
 
 div::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0);
-    /* Change to your background color */
+  background-color: rgba(0, 0, 0, 0);
+  /* Change to your background color */
 }
 
 .home-sub-slider {
-    overflow-y: scroll;
-    max-height: 100%;
-    padding-right: 16px;
+  overflow-y: scroll;
+  max-height: 100%;
+  padding-right: 16px;
+}
+.home_body {
+  margin-left: 4rem;
+  margin-right: 4rem;
+  text-align: center;
 }

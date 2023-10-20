@@ -1,0 +1,17 @@
+#bird__list {
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#bird__introduction img {
+  margin: 10px;
+  width: 80%;
+}
+#bird__introduction h3 {
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+#bird__introduction {
+  align-items: center;
+}

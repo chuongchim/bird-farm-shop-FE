@@ -1,0 +1,17 @@
+.service__item {
+  position: relative;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+.service__item p {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.service__item a {
+  text-decoration: none;
+  color: black;
+  font-weight: 800;
+  font-size: 1.2rem;
+}

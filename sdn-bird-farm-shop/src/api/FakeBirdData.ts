@@ -1,0 +1,411 @@
+import { BirdInterface } from "../models/Bird";
+
+const BirdList: BirdInterface[] = [
+  {
+    birdID: "1",
+    birdName: "Parrot",
+    age: 1,
+    typeOfBird: {
+      typeID: "1",
+      typeName: "Parrot",
+      abilityBirdMatching: 1,
+      quantity: 1,
+    },
+    gender: true,
+    status: {
+      statusID: "1",
+      statusName: "Parrot",
+    },
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    fertility: 1,
+    feedback: "rat dep",
+    rating: 1,
+    price: 1,
+    image: [
+      "https://vnn-imgs-f.vgcloud.vn/2019/12/31/14/bai-thuoc-tu-chim-se-chua-nam-gioi-liet-duong-it-tinh.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+    ],
+  },
+  {
+    birdID: "2",
+    birdName: "Eagle",
+    age: 2,
+    typeOfBird: {
+      typeID: "2",
+      typeName: "Eagle",
+      abilityBirdMatching: 2,
+      quantity: 2,
+    },
+    gender: false,
+    status: {
+      statusID: "2",
+      statusName: "Eagle",
+    },
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    fertility: 2,
+    feedback: "rat dep",
+    rating: 2,
+    price: 2,
+    image: [
+      "https://vnn-imgs-f.vgcloud.vn/2019/12/31/14/bai-thuoc-tu-chim-se-chua-nam-gioi-liet-duong-it-tinh.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+    ],
+  },
+  {
+    birdID: "3",
+    birdName: "Owl",
+    age: 3,
+    typeOfBird: {
+      typeID: "3",
+      typeName: "Owl",
+      abilityBirdMatching: 3,
+      quantity: 3,
+    },
+    gender: true,
+    status: {
+      statusID: "3",
+      statusName: "Owl",
+    },
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    fertility: 3,
+    feedback: "rat dep",
+    rating: 3,
+    price: 3,
+    image: [
+      "https://vnn-imgs-f.vgcloud.vn/2019/12/31/14/bai-thuoc-tu-chim-se-chua-nam-gioi-liet-duong-it-tinh.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+    ],
+  },
+  {
+    birdID: "4",
+    birdName: "Penguin",
+    age: 4,
+    typeOfBird: {
+      typeID: "4",
+      typeName: "Penguin",
+      abilityBirdMatching: 4,
+      quantity: 4,
+    },
+    gender: false,
+    status: {
+      statusID: "4",
+      statusName: "Penguin",
+    },
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    fertility: 4,
+    feedback: "rat dep",
+    rating: 4,
+    price: 4,
+    image: [
+      "https://vnn-imgs-f.vgcloud.vn/2019/12/31/14/bai-thuoc-tu-chim-se-chua-nam-gioi-liet-duong-it-tinh.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+    ],
+  },
+  {
+    birdID: "5",
+    birdName: "Flamingo",
+    age: 5,
+    typeOfBird: {
+      typeID: "5",
+      typeName: "Flamingo",
+      abilityBirdMatching: 5,
+      quantity: 5,
+    },
+    gender: true,
+    status: {
+      statusID: "5",
+      statusName: "Flamingo",
+    },
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    fertility: 5,
+    feedback: "rat dep",
+    rating: 5,
+    price: 5,
+    image: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Eopsaltria_australis_-_Mogo_Campground.jpg/640px-Eopsaltria_australis_-_Mogo_Campground.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+    ],
+  },
+  {
+    birdID: "6",
+    birdName: "Hummingbird",
+    age: 1,
+    typeOfBird: {
+      typeID: "6",
+      typeName: "Hummingbird",
+      abilityBirdMatching: 1,
+      quantity: 1,
+    },
+    gender: true,
+    status: {
+      statusID: "6",
+      statusName: "Hummingbird",
+    },
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    fertility: 1,
+    feedback: "rat dep",
+    rating: 1,
+    price: 1,
+    image: [
+      "https://vnn-imgs-f.vgcloud.vn/2019/12/31/14/bai-thuoc-tu-chim-se-chua-nam-gioi-liet-duong-it-tinh.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+    ],
+  },
+  {
+    birdID: "7",
+    birdName: "Hawk",
+    age: 2,
+    typeOfBird: {
+      typeID: "7",
+      typeName: "Hawk",
+      abilityBirdMatching: 2,
+      quantity: 2,
+    },
+    gender: false,
+    status: {
+      statusID: "7",
+      statusName: "Hawk",
+    },
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    fertility: 2,
+    feedback: "rat dep",
+    rating: 2,
+    price: 2,
+    image: [
+      "https://vnn-imgs-f.vgcloud.vn/2019/12/31/14/bai-thuoc-tu-chim-se-chua-nam-gioi-liet-duong-it-tinh.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+    ],
+  },
+  {
+    birdID: "8",
+    birdName: "Crow",
+    age: 3,
+    typeOfBird: {
+      typeID: "8",
+      typeName: "Crow",
+      abilityBirdMatching: 3,
+      quantity: 3,
+    },
+    gender: true,
+    status: {
+      statusID: "8",
+      statusName: "Crow",
+    },
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    fertility: 3,
+    feedback: "rat dep",
+    rating: 3,
+    price: 3,
+    image: [
+      "https://vnn-imgs-f.vgcloud.vn/2019/12/31/14/bai-thuoc-tu-chim-se-chua-nam-gioi-liet-duong-it-tinh.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+    ],
+  },
+  {
+    birdID: "9",
+    birdName: "Swan",
+    age: 4,
+    typeOfBird: {
+      typeID: "9",
+      typeName: "Swan",
+      abilityBirdMatching: 4,
+      quantity: 4,
+    },
+    gender: false,
+    status: {
+      statusID: "9",
+      statusName: "Swan",
+    },
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    fertility: 4,
+    feedback: "rat dep",
+    rating: 4,
+    price: 4,
+    image: [
+      "https://vnn-imgs-f.vgcloud.vn/2019/12/31/14/bai-thuoc-tu-chim-se-chua-nam-gioi-liet-duong-it-tinh.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+    ],
+  },
+  {
+    birdID: "10",
+    birdName: "Duck",
+    age: 5,
+    typeOfBird: {
+      typeID: "10",
+      typeName: "Duck",
+      abilityBirdMatching: 5,
+      quantity: 5,
+    },
+    gender: true,
+    status: {
+      statusID: "10",
+      statusName: "Duck",
+    },
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    fertility: 5,
+    feedback: "rat dep",
+    rating: 5,
+    price: 5,
+    image: [
+      "https://vnn-imgs-f.vgcloud.vn/2019/12/31/14/bai-thuoc-tu-chim-se-chua-nam-gioi-liet-duong-it-tinh.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+    ],
+  },
+  {
+    birdID: "11",
+    birdName: "Peacock",
+    age: 1,
+    typeOfBird: {
+      typeID: "11",
+      typeName: "Peacock",
+      abilityBirdMatching: 1,
+      quantity: 1,
+    },
+    gender: true,
+    status: {
+      statusID: "11",
+      statusName: "Peacock",
+    },
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    fertility: 1,
+    feedback: "rat dep",
+    rating: 1,
+    price: 1,
+    image: [
+      "https://vnn-imgs-f.vgcloud.vn/2019/12/31/14/bai-thuoc-tu-chim-se-chua-nam-gioi-liet-duong-it-tinh.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+    ],
+  },
+  {
+    birdID: "12",
+    birdName: "Seagull",
+    age: 2,
+    typeOfBird: {
+      typeID: "12",
+      typeName: "Seagull",
+      abilityBirdMatching: 2,
+      quantity: 2,
+    },
+    gender: false,
+    status: {
+      statusID: "12",
+      statusName: "Seagull",
+    },
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    fertility: 2,
+    feedback: "rat dep",
+    rating: 2,
+    price: 2,
+    image: [
+      "https://vnn-imgs-f.vgcloud.vn/2019/12/31/14/bai-thuoc-tu-chim-se-chua-nam-gioi-liet-duong-it-tinh.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+    ],
+  },
+  {
+    birdID: "13",
+    birdName: "Sparrow",
+    age: 3,
+    typeOfBird: {
+      typeID: "13",
+      typeName: "Sparrow",
+      abilityBirdMatching: 3,
+      quantity: 3,
+    },
+    gender: true,
+    status: {
+      statusID: "13",
+      statusName: "Sparrow",
+    },
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    fertility: 3,
+    feedback: "rat dep",
+    rating: 3,
+    price: 3,
+    image: [
+      "https://vnn-imgs-f.vgcloud.vn/2019/12/31/14/bai-thuoc-tu-chim-se-chua-nam-gioi-liet-duong-it-tinh.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+    ],
+  },
+  {
+    birdID: "14",
+    birdName: "Toucan",
+    age: 4,
+    typeOfBird: {
+      typeID: "14",
+      typeName: "Toucan",
+      abilityBirdMatching: 4,
+      quantity: 4,
+    },
+    gender: false,
+    status: {
+      statusID: "14",
+      statusName: "Toucan",
+    },
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    fertility: 4,
+    feedback: "rat dep",
+    rating: 4,
+    price: 4,
+    image: [
+      "https://vnn-imgs-f.vgcloud.vn/2019/12/31/14/bai-thuoc-tu-chim-se-chua-nam-gioi-liet-duong-it-tinh.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+    ],
+  },
+  {
+    birdID: "15",
+    birdName: "Woodpecker",
+    age: 5,
+    typeOfBird: {
+      typeID: "15",
+      typeName: "Woodpecker",
+      abilityBirdMatching: 5,
+      quantity: 5,
+    },
+    gender: true,
+    status: {
+      statusID: "15",
+      statusName: "Woodpecker",
+    },
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    fertility: 5,
+    feedback: "rat dep",
+    rating: 5,
+    price: 5,
+    image: [
+      "https://vnn-imgs-f.vgcloud.vn/2019/12/31/14/bai-thuoc-tu-chim-se-chua-nam-gioi-liet-duong-it-tinh.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Passer_domesticus3.jpg/280px-Passer_domesticus3.jpg",
+    ],
+  },
+];
+
+export default BirdList;
