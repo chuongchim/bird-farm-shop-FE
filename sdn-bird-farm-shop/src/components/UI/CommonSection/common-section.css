@@ -1,0 +1,14 @@
+.common__section {
+    background: linear-gradient(rgba(5, 5, 5, 0.6), rgba(2, 2, 3, 0.6)),
+        url("../../assets/img/background-contact.jpg ");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 80px 0px;
+}
+
+.text-light h1 {
+    color: black;
+    font-weight: 600;
+    margin-bottom: 0;
+}

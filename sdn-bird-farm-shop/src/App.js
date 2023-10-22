@@ -18,8 +18,8 @@ function App() {
           <Route path='/auth/verify' element={<VerifyGmailForm></VerifyGmailForm>}></Route>
           <Route path='/' element={<HomeComponent></HomeComponent>}></Route>
           <Route path='/order-page' element={<OrderPageComponent></OrderPageComponent>}></Route>
-          
-          
+
+
         </Routes>
       </BrowserRouter>
     </div>
