@@ -7,6 +7,10 @@ import Register from './components/Authentication/Register/Register';
 import VerifyGmailForm from './components/Authentication/Verify/VerifyGmailForm';
 import HomeComponent from './components/Home/HomeComponent';
 import OrderPageComponent from './components/Order/OrderPage/OrderPageComponent';
+import { AdminDashBoard } from './components/admindashboard/AdminDashboard';
+import ManageBirdList from './components/adminmanagebirdlist/ManageBirdList';
+import ManageEmployee from './components/adminmanageemployee/ManageEmployee';
+import ManageVoucher from './components/adminmanagevoucher/ManageVoucher';
 
 function App() {
   return (
@@ -19,6 +23,11 @@ function App() {
           <Route path='/' element={<HomeComponent></HomeComponent>}></Route>
           <Route path='/order-page' element={<OrderPageComponent></OrderPageComponent>}></Route>
 
+          {/* ADMIN DASHOBOARD AND MANAGE BIRD EMPLOYEE VOUCHER */}
+          <Route path='/admin-dashboard' element={<AdminDashBoard></AdminDashBoard>}></Route>
+          <Route path='/admin-manage-bird' element={<ManageBirdList></ManageBirdList>}></Route>
+          <Route path='/admin-manage-employee' element={<ManageEmployee></ManageEmployee>}></Route>
+          <Route path='/admin-manage-voucher' element={<ManageVoucher></ManageVoucher>}></Route>
 
         </Routes>
       </BrowserRouter>
