@@ -3,6 +3,7 @@ import Carousel from "react-material-ui-carousel";
 import { Grid } from "@mui/material";
 import BirdItem from "../../../Bird/BirdList/BirdItem/BirdItem";
 import BirdList from "../../../../api/FakeBirdData";
+import "./NewBirdsCarousel.css";
 function NewBirdsCarousel() {
   const listBirdCarousel = BirdList.slice(0, 15);
   const sliderItems: number =
@@ -30,9 +31,10 @@ function NewBirdsCarousel() {
     }
   }
   return (
-    <div id="carousel">
+    <div>
       <h4 className="home_title">New Birds</h4>
       <Carousel
+        className="carousel"
         animation="slide"
         autoPlay={false}
         cycleNavigation
