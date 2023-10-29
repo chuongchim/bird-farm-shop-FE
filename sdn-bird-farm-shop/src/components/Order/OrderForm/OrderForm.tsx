@@ -24,7 +24,6 @@ const OrderForm = () => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     console.log('Thông tin đơn hàng:', order);
-    // Đặt các hành động lưu đối tượng order ở đây (ví dụ: gửi lên máy chủ, xử lý dữ liệu...)
   };
 
   const inputStyle = { height: '30px', margin: '20px' };

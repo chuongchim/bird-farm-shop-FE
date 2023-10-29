@@ -17,6 +17,7 @@ export default function CircularIndeterminate() {
     <Backdrop
       open={open}
       sx={{
+        position: 'absolute',
         zIndex: 9999,
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
       }}

@@ -28,7 +28,12 @@
   width: 100%;
 }
 
+.header-component{
+  width: 100%;
+}
+
 .header-component--banner {
+  width: 100%;
   background-color: var(--main-bg-color); 
 }
 

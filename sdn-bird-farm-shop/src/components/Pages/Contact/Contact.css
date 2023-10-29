@@ -1,5 +1,54 @@
-.social__link-icon {
-    text-decoration: none;
+.contact {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+}
+
+.contact .leftSide {
+    height: 100%;
+    flex: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.contact .rightSide {
+    height: 100%;
+    flex: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact .rightSide h3 {
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    margin: 30px;
+}
+
+.contact .rightSide p {
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    font-size: 20px;
+    margin: 0 30px;
+    font-weight: lighter;
+}
+/* 
+form {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    padding: 30px;
+}
+
+form input {
+    height: 40px;
+    width: 80%;
+    border: none;
+    border-bottom: 1px solid #121619;
     color: black;
     font-weight: 500;
     font-size: 1.2rem;
@@ -21,12 +70,13 @@
     margin-bottom: 0;
 }
 
-section {
-    padding: 50px 0px;
-}
-
-.section__description {
-    color: #7c8a97;
-    font-size: 0.9rem;
-    line-height: 30px;
-}
+form button {
+    margin-top: 40px;
+    width: 140px;
+    height: 40px;
+    border: none;
+    background-color: #121619;
+    color: whitesmoke;
+    font-size: 15px;
+    cursor: pointer;
+} */

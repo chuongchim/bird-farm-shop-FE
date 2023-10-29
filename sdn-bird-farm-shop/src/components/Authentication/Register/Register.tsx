@@ -265,7 +265,6 @@ export default function Register() {
         console.log(formData);
         console.log(apiBaseUrl);
         
-        // /email/sendCode
         const requestData = {
             firstName: formData.firstName,
             lastName: formData.lastName,

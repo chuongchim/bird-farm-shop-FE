@@ -7,7 +7,7 @@ import { Container, Row, Col } from "reactstrap";
 
 import BirdImg from "../../../assets/img/background-about-2.jpg";
 import OurMembers from "../../UI/OurMember/OurMembers";
-import "./about.css";
+import "./About.css";
 
 const About = () => {
     return (

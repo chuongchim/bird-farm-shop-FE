@@ -1,29 +1,33 @@
 export interface BirdInterface {
-    BirdID: String,
-    BirdName: String,
-    Age: number,
-    TypeOfBird: TypeOfBirdInterface,
-    Gender: boolean,
-    Status: BirdStatusInterface,
-    Description: String,
-    Fertility: number,
-    Feedback: String,
-    Rating: number,
-    Price: number,
+    productID: string,
+    productName: string,
+    age: number,
+    typeOfBirdID: string,
+    images: string[],
+    gender: boolean,
+    Status: boolean,
+    description: string,
+    fertility: number,
+    feedback: string,
+    rating: number,
+    price: number,
+    typeOfProduct: string,
+    quantity: number,
+    birdColor: string,
+    breedingTimes: number
 
 }
 
 export interface TypeOfBirdInterface{
-    TypeID: String,
-    TypeName: String,
-    AbilityBirdMatching: number,
-    Quantity: number,
+    typeID: string,
+    typeName: string,
+    quantity: number,
 
 }
 
 export interface BirdStatusInterface{
-    StatusID: String,
-    StatusName: String,
+    StatusID: string,
+    StatusName: string,
 }
 
 export interface NestInterface{
