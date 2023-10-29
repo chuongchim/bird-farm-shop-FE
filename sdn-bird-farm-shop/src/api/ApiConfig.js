@@ -1,6 +1,6 @@
 export const url = 'https://birdfarmshopbe-production.up.railway.app/'
-export const crossUrl = 'https://cors-anywhere-production-d452.up.railway.app/'
-export const apiBaseUrl = crossUrl + url;
+export const crossUrl = 'https://cors-anywhere-production-30f7.up.railway.app/'
+export const apiBaseUrl = url;
 export const basePonitUrl = {
     auth: 'auth',
     customer: 'customer',
@@ -8,7 +8,8 @@ export const basePonitUrl = {
     cart: 'cart',
     order: 'order',
     revenue: 'revenues',
-    email: 'email'
+    email: 'email',
+    none: ''
 }
 
 export const adminUrl = {

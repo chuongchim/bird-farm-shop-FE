@@ -21,11 +21,11 @@ class ApiService {
         try {
             const response = await axios.post(`${this.apiBaseUrl}${endpoint}`, data, {
                 headers: {
-                    'Content-Type': 'application/json',
-                    "Access-Control-Allow-Origin": apiBaseUrl,
-                    "Accept": "*/*",
-                    "X-Requested-With": "XMLHttpRequest",
-                    "Cache-Control": "no-cache",
+                    // 'Content-Type': 'application/json',
+                    // "Access-Control-Allow-Origin": apiBaseUrl,
+                    // "Accept": "*/*",
+                    // "X-Requested-With": "XMLHttpRequest",
+                    // "Cache-Control": "no-cache",
                 },
             });
             return response.data;

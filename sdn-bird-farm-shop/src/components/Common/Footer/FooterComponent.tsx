@@ -11,7 +11,7 @@ import './FooterComponent.css';
 
 const FooterComponent = () => {
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#FAC74F', top: 'auto', bottom: 0 }}>
+    <AppBar position="static" sx={{ backgroundColor: '#FAC74F', top: 'auto', bottom: 0, marginTop: '100px' }}>
       <Container maxWidth="xl">
         <Toolbar className="footer-content">
           <div className="footer-left">

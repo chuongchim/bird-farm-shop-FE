@@ -2,10 +2,10 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import LinkTab from '@mui/material/Tab';
+import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Link } from 'react-router-dom';
 import { bindMenu, bindTrigger, usePopupState } from 'material-ui-popup-state/hooks';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
@@ -114,7 +114,7 @@ export default function HeaderComponent() {
             <List>
                 {['Bird shop', 'Matching bird', 'Parrot ', 'Woodpecker', 'Sparrow', 'Crow'].map((text, index) => (
                     <ListItem key={text} disablePadding>
-                        <ListItemButton>
+                        <ListItemButton onClick={() => handleChangePage(index)}>
                             <ListItemIcon>
                                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                             </ListItemIcon>
@@ -127,11 +127,18 @@ export default function HeaderComponent() {
         </Box>
     );
 
+    const handleChangePage = (index: number) => {
+        if (index === 0) {
+            window.location.href = '/bird';
+        }
+
+    }
+
 
 
     return (
 
-        <AppBar className='header-component' position="fixed" >
+        <AppBar className='header-component' position="fixed" sx={{ backgroundColor: 'white', zIndex: '10' }} >
             <Container className='header-component--banner' maxWidth="xl">
                 <Toolbar>
                     <Typography variant="h4" >CARDONE</Typography>
@@ -196,7 +203,7 @@ export default function HeaderComponent() {
 
                             <PopupStateComponent label="Nest" isActive={true} index={0} />
                             <PopupStateComponent label="Food" isActive={true} index={1} />
-                            <PopupStateComponent label="Bird Matching" isActive={true} index={2} />
+                            <LinkTab className="button-with-border" label="Matching Bird" href='/matching-bird' style={{ color: 'black', margin: '5px', fontSize: '16px' }} />
                             <PopupStateComponent label="About Us" isActive={true} index={3} />
                             <PopupStateComponent label="Contact Us" isActive={true} index={3} />
                         </Tabs>
@@ -204,7 +211,9 @@ export default function HeaderComponent() {
                     <Box sx={{ display: 'flex', float: 'left', marginRight: '50px' }}>
                         <IconButton aria-label="cart" sx={{ marginRight: '15px' }}>
                             <StyledBadge badgeContent={4} color="secondary">
-                                <ShoppingCartIcon />
+                                <Link href='/cart'>
+                                    <ShoppingCartIcon />
+                                </Link>
                             </StyledBadge>
                         </IconButton>
                         <IconButton>
@@ -237,7 +246,9 @@ export default function HeaderComponent() {
                         >
                             {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                                    <Link href="/user-profile">
+                                        <Typography textAlign="center">{setting}</Typography>
+                                    </Link>
                                 </MenuItem>
                             ))}
                         </Menu>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Container, Row, Col, Form, FormGroup, Input } from "reactstrap";
 import CommonSection from "../../UI/CommonSection/CommonSection";
 
-import "./contact.css";
+import "./Contact.css";
 
 const socialLinks = [
     {

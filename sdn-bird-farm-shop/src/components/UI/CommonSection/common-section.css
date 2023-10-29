@@ -1,6 +1,6 @@
 .common__section {
-    background: linear-gradient(rgba(5, 5, 5, 0.6), rgba(2, 2, 3, 0.6)),
-        url("../../assets/img/background-contact.jpg ");
+    /* background: linear-gradient(rgba(5, 5, 5, 0.6), rgba(2, 2, 3, 0.6)),
+        url("../../assets/img/background-contact.jpg "); */
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
