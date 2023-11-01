@@ -112,13 +112,13 @@ const DetailBirdPageComponent: React.FC<DetailBirdSelectProps> = ({
     });
   }, [_id]);
 
-  React.useEffect(() => {
-    APISERVICE.getData("typeOfBird/getAllTypeOfBird")
-      .then((data: TypeOfBirdInterface[]) => {
-        setDataTOB(data);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+  // React.useEffect(() => {
+  //   APISERVICE.getData("/v1/typeofbird/")
+  //     .then((data: TypeOfBirdInterface[]) => {
+  //       setDataTOB(data);
+  //     })
+  //     .catch((error) => console.error("Error fetching data:", error));
+  // }, []);
 
   return (
     <div className="detail-bird-page-component">
@@ -135,107 +135,105 @@ const DetailBirdPageComponent: React.FC<DetailBirdSelectProps> = ({
           {bird && bird._id ? (
             <>
               <div>
-                <div id="bird-detail">
-                  <Grid container spacing={3}>
-                    <Grid item xs={6}>
-                      <div id="bird-carousel">
-                        <Paper
-                          elevation={3}
-                          className="selected-image-container"
+                <Grid container spacing={1}>
+                  <Grid item xs={7}>
+                    <div id="bird-carousel">
+                      <Paper elevation={3} className="selected-image-container">
+                        <IconButton
+                          className="icon-prev-img"
+                          onClick={handlePreviousImage}
                         >
-                          <IconButton
-                            className="icon-prev-img"
-                            onClick={handlePreviousImage}
-                          >
-                            <ArrowBackIcon />
-                          </IconButton>
-                          <img
-                            src={selectedImage}
-                            alt="Bird"
-                            className="bird-image"
-                          />
-                          <IconButton
-                            className="icon-next-img"
-                            onClick={handleNextImage}
-                          >
-                            <ArrowForwardIcon />
-                          </IconButton>
-                        </Paper>
-                        <div className="image-slider">
-                          {bird.images &&
-                            bird.images.map((image, index) => (
-                              <Paper
-                                key={index}
-                                elevation={2}
-                                className={`slider-image ${
-                                  selectedImage === image ? "selected" : ""
-                                }`}
-                              >
-                                <img
-                                  src={image}
-                                  alt={`Bird ${index}`}
-                                  onClick={() => handleImageClick(image)}
-                                />
-                              </Paper>
-                            ))}
-                        </div>
+                          <ArrowBackIcon />
+                        </IconButton>
+                        <img
+                          src={selectedImage}
+                          alt="Bird"
+                          className="selected-image"
+                        />
+                        <IconButton
+                          className="icon-next-img"
+                          onClick={handleNextImage}
+                        >
+                          <ArrowForwardIcon />
+                        </IconButton>
+                      </Paper>
+                      <div className="image-slider">
+                        {bird.images &&
+                          bird.images.map((image, index) => (
+                            <Paper
+                              key={index}
+                              elevation={2}
+                              className={`slider-image ${
+                                selectedImage === image ? "selected" : ""
+                              }`}
+                            >
+                              <img
+                                src={image}
+                                alt={`Bird ${index}`}
+                                onClick={() => handleImageClick(image)}
+                              />
+                            </Paper>
+                          ))}
                       </div>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Card id="bird-card">
-                        <div className="bird-info">
-                          <h1>{bird.birdName}</h1>
-                          <h2>{bird.price} VNĐ</h2>
-                          <h4>Details</h4>
-                          <Grid container>
-                            <Grid item xs={6} container>
-                              <Grid item xs={4}>
-                                <p>ID: </p>
-                                <p>Breed: </p>
-                                <p>Gender: </p>'
-                              </Grid>
-                              <Grid item xs={6}>
-                                <p>1</p>
-                                <p>Chimse</p>
-                                <p>Male</p>
-                              </Grid>
+                    </div>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <Card id="bird-card">
+                      <div className="bird-info">
+                        <h1>{bird.birdName}</h1>
+                        <h2>{bird.price} VNĐ</h2>
+                        <hr />
+                        <h4>Details</h4>
+                        <Grid container>
+                          <Grid item xs={6} container>
+                            <Grid item xs={6}>
+                              <p>Quantity: </p>
+                              <p>Breed: </p>
+                              <p>Gender: </p>'
                             </Grid>
-                            <Grid item xs={6} container>
-                              <Grid item xs={4}>
-                                <p>Age: </p>
-                                <p>Status: </p>
-                                <p>Fertility: </p>
-                              </Grid>
-                              <Grid item xs={6}>
-                                <p>1</p>
-                                <p>Fine</p>
-                                <p>OK</p>
-                              </Grid>
+                            <Grid item xs={6}>
+                              <p>{bird.quantity}</p>
+                              <p>{bird.typeID && bird.typeID.nameType}</p>
+                              <p>{bird.gender ? "Male" : "Female"}</p>
                             </Grid>
-                            {/* <p>{bird.age}</p>
+                          </Grid>
+                          <Grid item xs={6} container>
+                            <Grid item xs={4}>
+                              <p>Age: </p>
+                              <p>Status: </p>
+                              <p>Fertility: </p>
+                            </Grid>
+                            <Grid item xs={6}>
+                              <p>{bird.age}</p>
+                              <p>{bird.status}</p>
+                              <p>{bird.fertility}</p>
+                            </Grid>
+                          </Grid>
+                          {/* <p>{bird.age}</p>
                   <p>{bird.typeOfBird.typeName}</p>
                   <p>{bird.gender ? "Male" : "Female"}</p> */}
 
-                            {/* <Grid item xs={6}>
+                          {/* <Grid item xs={6}>
                   <p>{bird.status.statusName}</p>
                   <p>{bird.fertility}</p>
                 </Grid> */}
-                          </Grid>
-                          <div>
-                            <h4>Description</h4>
+                        </Grid>
+                        <div>
+                          <h4>Description</h4>
 
-                            <p>
-                              Believed to be female. Loved pet but international
-                              move to a country that won’t allow her means she
-                              needs to find a new home. Comes with cage and toys{" "}
-                            </p>
-                          </div>
+                          <p>
+                            Believed to be female. Loved pet but international
+                            move to a country that won’t allow her means she
+                            needs to find a new home. Comes with cage and toys{" "}
+                          </p>
                         </div>
-                        <div id="addToCart">Add to cart</div>
-                      </Card>
-                    </Grid>
+                      </div>
+                      <div id="addToCart">Add to cart</div>
+                    </Card>
                   </Grid>
-                  {/* <Grid container id="addToCart">
+                </Grid>
+
+                {/* <Grid container id="addToCart">
           <Grid item xs={1}></Grid>
           <Grid item xs={4}>
             <p>{bird.birdName}</p>
@@ -247,7 +245,6 @@ const DetailBirdPageComponent: React.FC<DetailBirdSelectProps> = ({
             <Button color="error">Add to cart</Button>
           </Grid>
         </Grid> */}
-                </div>
               </div>
             </>
           ) : (

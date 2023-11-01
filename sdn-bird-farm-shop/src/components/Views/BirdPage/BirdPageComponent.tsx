@@ -461,11 +461,11 @@ const BirdPageComponent: React.FC = () => {
                   <div className="chip-container">
                     {dataTOB.map((item: TypeOfBirdInterface) => (
                       <Chip
-                        label={item.typeName}
-                        onClick={() => handleBirdTypeFilter(item.typeName)}
+                        label={item.nameType}
+                        onClick={() => handleBirdTypeFilter(item.nameType)}
                         sx={{
                           backgroundColor:
-                            formData.typeOfBird === item.typeName
+                            formData.typeOfBird === item.nameType
                               ? "#FAC74F"
                               : "default",
                         }}
@@ -550,8 +550,8 @@ const BirdPageComponent: React.FC = () => {
                         <Typography variant="body2" color="textSecondary">
                           Type:{" "}
                           {dataTOB.map((item: TypeOfBirdInterface) => {
-                            if (item.typeID === bird.typeOfBirdID) {
-                              return item.typeName;
+                            if (item.typeID === bird.typeID.typeID) {
+                              return item.typeID;
                             }
                           })}
                         </Typography>

@@ -2,7 +2,7 @@ export interface BirdInterface {
   _id: string;
   birdName: string;
   age: number;
-  typeOfBirdID: string;
+  typeID: TypeOfBirdInterface;
   images: string[];
   gender: boolean;
   status: boolean;
@@ -19,7 +19,7 @@ export interface BirdInterface {
 
 export interface TypeOfBirdInterface {
   typeID: string;
-  typeName: string;
+  nameType: string;
   quantity: number;
 }
 

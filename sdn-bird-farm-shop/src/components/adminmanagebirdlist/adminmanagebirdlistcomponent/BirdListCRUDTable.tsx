@@ -157,7 +157,7 @@ const BirdListCRUDTable: React.FC = () => {
       _id: bird._id,
       birdName: bird.birdName,
       age: bird.age,
-      typeOfBirdID: bird.typeOfBirdID,
+      typeID: bird.typeID,
       images: bird.images,
       gender: bird.gender,
       status: bird.status,
@@ -293,7 +293,7 @@ const BirdListCRUDTable: React.FC = () => {
                     <TableCell align="left">
                       {row.fertility ? "Ability" : "Unability"}
                     </TableCell>
-                    <TableCell align="left">{row.typeOfBirdID}</TableCell>
+                    <TableCell align="left">{row.typeID.nameType}</TableCell>
                     <TableCell align="left">
                       {row.description.length > 15
                         ? `${row.description.slice(0, 30)}...`
