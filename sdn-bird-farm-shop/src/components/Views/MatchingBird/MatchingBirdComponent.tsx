@@ -21,14 +21,14 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import Slider1 from '../../../assets/img/slider-bird1.jpg';
 import Slider2 from '../../../assets/img/slider-bird3.jpg';
-import ApiService from '../../../utils/ApiService';
+import ApiService from '../../../utils/ApiService';///
 
 
 const APISERVICE = new ApiService
 const MatchingBirdComponent: React.FC = () => {
     const [openPopup1, setOpenPopup1] = useState(false);
     const [openPopup2, setOpenPopup2] = useState(false);
-    const [selectedBird1, setselectedBird1] = useState<BirdInterface>({
+    const [selectedBird1, setSelectedBird1] = useState<BirdInterface>({
         productID: '',
         productName: '',
         age: 1,
@@ -47,6 +47,23 @@ const MatchingBirdComponent: React.FC = () => {
         breedingTimes: 1
 
     });
+
+    useEffect(() => {
+
+        fetch(`http://localhost:5000/v1/bird/653fe71f11875c76cd408f70`)
+            .then(response => response.json())
+            .then(data => {
+                // Update selectedBird2 state with the retrieved data
+                setSelectedBird1(data);
+            })
+            .catch(error => {
+                console.error('Error fetching bird data:', error);
+            });
+
+    }, [selectedBird1.productID]); // Run the effect whenever selectedBird2.productID changes
+
+
+
     const [selectedBird2, setSelectedBird2] = useState<BirdInterface>(
         {
             productID: '',
@@ -68,6 +85,23 @@ const MatchingBirdComponent: React.FC = () => {
 
         }
     );
+
+    useEffect(() => {
+
+        fetch(`http://localhost:5000/v1/bird/652f2b49c89de4f2b023af30`)
+            .then(response => response.json())
+            .then(data => {
+                // Update selectedBird2 state with the retrieved data
+                setSelectedBird2(data);
+            })
+            .catch(error => {
+                console.error('Error fetching bird data:', error);
+            });
+
+    }, [selectedBird2.productID]); // Run the effect whenever selectedBird2.productID changes
+
+
+
     const [matchingPopupOpen, setMatchingPopupOpen] = useState(false);
     const [recommonBirdList2, setRecommonBirdList2] = useState<BirdInterface[]>();
     const [birdList1, setBirdList1] = React.useState<BirdInterface[] | null>(null);
@@ -147,7 +181,7 @@ const MatchingBirdComponent: React.FC = () => {
 
     const handleBirdSelection = (bird: BirdInterface, boxNumber: number) => {
         if (boxNumber === 1) {
-            setselectedBird1(bird);
+            setSelectedBird1(bird);
 
             setOpenPopup1(false);
         } else if (boxNumber === 2) {
