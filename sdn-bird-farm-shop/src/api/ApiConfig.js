@@ -1,10 +1,10 @@
-export const url = 'https://birdfarmshopbe-production.up.railway.app/'
-export const crossUrl = 'https://cors-anywhere-production-30f7.up.railway.app/'
+export const url = 'http://localhost:5000'
+export const crossUrl = 'http://localhost:5000'
 export const apiBaseUrl = url;
 export const basePonitUrl = {
     auth: 'auth',
     customer: 'customer',
-    birds: 'bird',
+    birds: '/v1/bird/',
     cart: 'cart',
     order: 'order',
     revenue: 'revenues',
