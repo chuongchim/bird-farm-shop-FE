@@ -33,7 +33,7 @@ function App() {
           <Route path='/order/order-detail'></Route>
           <Route path='/matching-bird' element={<MatchingBirdComponent></MatchingBirdComponent>}></Route>
           <Route path='/bird' element={<BirdPageComponent></BirdPageComponent>}></Route>
-          <Route path="/bird/detail/:productID" element={<DetailBirdPageComponent></DetailBirdPageComponent>}></Route>
+          <Route path="/bird/detail/:_id" element={<DetailBirdPageComponent></DetailBirdPageComponent>}></Route>
           <Route path='/cart' element={<CartComponent></CartComponent>}></Route>
 
           {/* ADMIN DASHOBOARD AND MANAGE BIRD EMPLOYEE VOUCHER */}
