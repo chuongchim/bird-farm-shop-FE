@@ -140,16 +140,36 @@ export default function SignIn() {
     event.preventDefault();
     const body = formData
     console.log(body);
-    console.log(baseUrl + 'auth' + '/login');
+    console.log(baseUrl + 'v1/auth' + '/login');
 
-    const obj = apiService.postData('auth' + '/login', body)
-    obj.then((res) => {
+    // const obj = apiService.postData('auth' + '/login', body)
+    // obj.then((res) => {
+    //   console.log(res);
+    //   localStorage.setItem("accessToken", res.access_token)
+    //   const decoded = jwtDecode(res.access_token);
+
+    //   console.log(decoded);
+    // window.location.href = '/'
+    // })
+    fetch("http://localhost:5000/v1/auth/login", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": '*',
+        "Accept": "/",
+        "X-Requested-With": "XMLHttpRequest",
+        "Cache-Control": "no-cache"
+      },
+      body: JSON.stringify(body)
+    }).then((rep) => {
+
+    }).then((res: any) => {
       console.log(res);
-      localStorage.setItem("accessToken", res.access_token)
-      const decoded = jwtDecode(res.access_token);
+      localStorage.setItem("token", res.accessToken)
+      // const decoded = jwtDecode(res.accessToken);
 
-      console.log(decoded);
-      // window.location.href = '/'
+      // console.log(decoded);
+      window.location.href = '/'
     })
   };
 

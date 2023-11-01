@@ -20,15 +20,15 @@ class ApiService {
     public async postData(endpoint: string, data: any) {
         try {
             const response = await axios.post(`${this.apiBaseUrl}${endpoint}`, data
-            // , {
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         "Access-Control-Allow-Origin": '*',
-            //         "Accept": "*/*",
-            //         "X-Requested-With": "XMLHttpRequest",
-            //         "Cache-Control": "no-cache",
-            //     },
-            // }
+                // , {
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         "Access-Control-Allow-Origin": '*',
+                //         "Accept": "*/*",
+                //         "X-Requested-With": "XMLHttpRequest",
+                //         "Cache-Control": "no-cache",
+                //     },
+                // }
             );
             return response.data;
         } catch (error) {
@@ -47,7 +47,7 @@ class ApiService {
 
     public async deleteData(endpoint: string) {
         try {
-            const response = await axios.delete(`${this.apiBaseUrl}${endpoint}` );
+            const response = await axios.delete(`${this.apiBaseUrl}${endpoint}`);
             return response.data;
         } catch (error) {
             throw error;
