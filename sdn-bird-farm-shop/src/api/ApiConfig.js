@@ -4,7 +4,7 @@ export const apiBaseUrl = url;
 export const basePonitUrl = {
     auth: 'auth',
     customer: 'customer',
-    birds: 'bird',
+    birds: '/v1/bird/',
     cart: 'cart',
     order: 'order',
     revenue: 'revenues',
