@@ -7,7 +7,7 @@ export interface BirdInterface {
   gender: boolean;
   status: boolean;
   description: string;
-  fertility: number;
+  fertility: boolean;
   feedback: string;
   rating: number;
   price: number;

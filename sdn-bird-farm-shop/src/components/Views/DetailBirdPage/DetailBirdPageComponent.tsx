@@ -185,30 +185,30 @@ const DetailBirdPageComponent: React.FC<DetailBirdSelectProps> = ({
                         <hr />
                         <h4>Details</h4>
                         <Grid container>
-                          <Grid item xs={6} container>
-                            <Grid item xs={6}>
-                              <p>Quantity: </p>
+                          <Grid item xs={12} container>
+                            <Grid item xs={4}>
                               <p>Breed: </p>
-                              <p>Gender: </p>'
+                              <p>Gender: </p>
+                              <p>Age: </p>
+                              <p>Fertility: </p>
                             </Grid>
-                            <Grid item xs={6}>
-                              <p>{bird.quantity}</p>
+                            <Grid item xs={8}>
                               <p>{bird.typeID && bird.typeID.nameType}</p>
                               <p>{bird.gender ? "Male" : "Female"}</p>
+                              <p>{bird.age}</p>
+                              <p>{bird.fertility ? "Yes" : "No"}</p>
                             </Grid>
                           </Grid>
-                          <Grid item xs={6} container>
-                            <Grid item xs={4}>
+                          {/* <Grid item xs={5} container>
+                            <Grid item xs={6}>
                               <p>Age: </p>
-                              <p>Status: </p>
                               <p>Fertility: </p>
                             </Grid>
                             <Grid item xs={6}>
                               <p>{bird.age}</p>
-                              <p>{bird.status}</p>
-                              <p>{bird.fertility}</p>
+                              <p>{bird.fertility ? "Yes" : "No"}</p>
                             </Grid>
-                          </Grid>
+                          </Grid> */}
                           {/* <p>{bird.age}</p>
                   <p>{bird.typeOfBird.typeName}</p>
                   <p>{bird.gender ? "Male" : "Female"}</p> */}

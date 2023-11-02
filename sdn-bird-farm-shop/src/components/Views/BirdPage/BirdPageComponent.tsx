@@ -71,7 +71,7 @@ const BirdPageComponent: React.FC = () => {
   const [birdsList, setBirdsList] = React.useState<BirdInterface[]>([]);
   const [typeOfBird, settypeOfBird] = React.useState<TypeOfBirdInterface[]>([]);
   const [dataTOB, setDataTOB] = useState<TypeOfBirdInterface[]>([]);
-
+  const [filtData, setFiltData] = useState<BirdInterface[]>();
   const [page, setPage] = useState(1);
   const [formData, setFormData] = React.useState({
     birdName: "",
@@ -184,6 +184,7 @@ const BirdPageComponent: React.FC = () => {
           style={{ backgroundColor: "#FAC74F" }}
           component="a"
           href="#"
+          key="price"
           label={`$${formData.price[0]} - $${formData.price[1]}`}
         />
         // <Link color="inherit" key="price">
@@ -213,6 +214,7 @@ const BirdPageComponent: React.FC = () => {
           style={{ backgroundColor: "#FAC74F" }}
           component="a"
           href="#"
+          key="fertility"
           label={`${formData.fertility}` ? "fertility: Yes" : "fertility: No"}
         />
 
@@ -228,6 +230,7 @@ const BirdPageComponent: React.FC = () => {
           style={{ backgroundColor: "#FAC74F" }}
           component="a"
           href="#"
+          key="birdType"
           label={`${formData.typeOfBird}`}
         />
 
@@ -251,7 +254,17 @@ const BirdPageComponent: React.FC = () => {
     // TODO: Clear the search input
     console.log("clicked the clear icon...");
   };
-
+  const filterBirdByRequest = () => {
+    const dataBody = {
+      left_range_age: formData.age[0],
+      right_range_age: formData.age[1],
+      gender: formData.gender.toString() == "true" ? true : false,
+      fertility: formData.fertility.toString() == "true" ? true : false,
+      //   typeID: formData.typeOfBird,
+      left_range_price: formData.price[0],
+      right_range_price: formData.price[1],
+    };
+  };
   React.useEffect(() => {
     APISERVICE.getData("/v1/typeofbird/")
       .then((data: TypeOfBirdInterface[]) => {
@@ -261,6 +274,7 @@ const BirdPageComponent: React.FC = () => {
       .catch((error) => console.error("Error fetching data:", error));
 
     APISERVICE.getData("/v1/bird/").then((data: BirdInterface[]) => {
+      setFiltData(data);
       setBirdsList(data);
       console.log("asddsf: ", data);
     });
@@ -274,7 +288,6 @@ const BirdPageComponent: React.FC = () => {
   const handleFilter = () => {
     console.log(JSON.stringify(formData));
   };
-
   const itemsPerPage = 12; // Change this value as needed
   const filteredBirds = birds.slice(
     (page - 1) * itemsPerPage,
@@ -282,30 +295,6 @@ const BirdPageComponent: React.FC = () => {
   );
   const handlePageChange = (event: React.ChangeEvent<any>, value: number) => {
     setPage(value);
-  };
-
-  const filterBirdByRequest = () => {
-    const dataBody = {
-      left_range_age: formData.age[0].toString(),
-      right_range_age: formData.age[1].toString(),
-      gender: formData.gender ? "male" : "female",
-      fertility: formData.fertility ? "true" : "false",
-      typeOfBirdName: formData.typeOfBird,
-      left_range_price: formData.price[0].toString(),
-      right_range_price: formData.price[1].toString(),
-      color: "",
-    };
-
-    console.log("object: ", dataBody);
-    APISERVICE.postData("bird/filterBirdByRequest", dataBody).then((data) => {
-      setIsLoading(true);
-      setTimeout(() => {
-        if (data) {
-          setIsLoading(false);
-          setBirdsList(data);
-        }
-      }, 2000);
-    });
   };
 
   return (
@@ -396,7 +385,7 @@ const BirdPageComponent: React.FC = () => {
                   </Typography>
                 </Button>
                 <Box onSubmit={handleFilter}>
-                  <FormLabel>price</FormLabel>
+                  <FormLabel>Price</FormLabel>
                   <Slider
                     name="price"
                     value={formData.price}
@@ -418,7 +407,7 @@ const BirdPageComponent: React.FC = () => {
                     sx={{ color: "#E9034F" }}
                   />
                   <br></br>
-                  <FormLabel>gender</FormLabel>
+                  <FormLabel>Gender</FormLabel>
                   <RadioGroup
                     row
                     name="gender"
@@ -437,7 +426,7 @@ const BirdPageComponent: React.FC = () => {
                     />
                   </RadioGroup>
                   <br />
-                  <FormLabel>fertility</FormLabel>
+                  <FormLabel>Fertility</FormLabel>
                   <RadioGroup
                     row
                     name="fertility"
@@ -462,7 +451,7 @@ const BirdPageComponent: React.FC = () => {
                     {dataTOB.map((item: TypeOfBirdInterface) => (
                       <Chip
                         label={item.nameType}
-                        onClick={() => handleBirdTypeFilter(item.nameType)}
+                        onClick={() => handleBirdTypeFilter(item.typeID)}
                         sx={{
                           backgroundColor:
                             formData.typeOfBird === item.nameType
@@ -548,18 +537,13 @@ const BirdPageComponent: React.FC = () => {
                         style={{ flex: "1 1 auto", marginTop: "10px" }}
                       >
                         <Typography variant="body2" color="textSecondary">
-                          Type:{" "}
-                          {dataTOB.map((item: TypeOfBirdInterface) => {
-                            if (item.typeID === bird.typeID.typeID) {
-                              return item.typeID;
-                            }
-                          })}
+                          Type: {bird.typeID.nameType}
                         </Typography>
                         <Typography variant="body2" color="textSecondary">
-                          age: {bird.age}
+                          Age: {bird.age}
                         </Typography>
                         <Typography variant="body2" color="textSecondary">
-                          gender: {bird.gender ? "Male" : "Female"}
+                          Gender: {bird.gender ? "Male" : "Female"}
                         </Typography>
                         <Typography variant="body2" color="textSecondary">
                           Description:{" "}

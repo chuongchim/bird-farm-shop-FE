@@ -178,7 +178,7 @@ intuitive.css
   margin-left: 5rem;
   margin-right: 5rem;
   /* text-align: center; */
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 #bird-detail h1 {
   text-align: left;
@@ -227,9 +227,9 @@ intuitive.css
 .bird-info > div > div {
   padding-left: 1rem;
 }
-.bird-info > div > div:first-child {
+/* .bird-info > div > div:first-child {
   border-right: 1px solid #ccc;
-}
+} */
 .bird-info > div:first-child {
   border-bottom: 1px solid #ccc;
   margin-bottom: 10px;
