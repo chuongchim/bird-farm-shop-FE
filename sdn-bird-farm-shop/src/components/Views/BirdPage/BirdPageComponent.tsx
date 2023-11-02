@@ -87,18 +87,20 @@ const BirdPageComponent: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleAddToCart = (bird: BirdInterface) => {
+
     const updatedCart = [...cart, bird];
     setCart(updatedCart);
 
-    // Save the updated cart to localStorage
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    console.log(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
 
     Swal.fire(
-      "Add to cart  Success!",
-      "Your bird has been in Your cart!!!",
-      "success"
+        'Add to cart  Success!',
+        'Your bird has been in Your cart!!!',
+        'success'
     );
-  };
+
+};
 
   const handleDetail = (birdId: string) => {
     window.location.href = "/bird/detail/" + `${birdId}`;

@@ -8,13 +8,12 @@ import OrderFormComponent from '../../Views/OrderPage/OrderFormComponent';
 
 const OrderPageComponent = () => {
     const [productList, setProductList] = useState([]);
-    const [vouchertList, setVouchertList] = useState([]);
 
     return (
         <div className='order-page-component'>
             <HeaderComponent></HeaderComponent>
             <Container sx={{ marginTop: '250px' }}>
-                <OrderFormComponent listProduct={productList} voucherList={vouchertList}></OrderFormComponent>
+                <OrderFormComponent listProduct={productList}></OrderFormComponent>
             </Container>
             <FooterComponent></FooterComponent>
 
