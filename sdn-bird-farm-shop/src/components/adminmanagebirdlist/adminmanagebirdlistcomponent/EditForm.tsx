@@ -113,7 +113,7 @@ const EditForm: React.FC<EditFormProps> = ({ birdId, editClose }) => {
     _id: birdId._id,
     birdName: birdId.birdName,
     age: birdId.age,
-    typeOfBirdID: birdId.typeOfBirdID,
+    typeID: birdId.typeID,
     images: birdId.images,
     gender: birdId.gender,
     status: birdId.status,
@@ -224,7 +224,7 @@ const EditForm: React.FC<EditFormProps> = ({ birdId, editClose }) => {
             size="small"
             sx={{ minWidth: "100%" }}
             name="typeOfBirdID"
-            value={formData.typeOfBirdID}
+            value={formData.typeID}
             onChange={handleFormChange}
           />
         </Grid>

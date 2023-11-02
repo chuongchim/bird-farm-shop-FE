@@ -36,12 +36,16 @@ const MatchingBirdComponent: React.FC = () => {
     _id: "",
     birdName: "",
     age: 1,
-    typeOfBirdID: "",
+    typeID: {
+      typeID: "",
+      nameType: "",
+      quantity: 0,
+    },
     images: [],
     gender: true,
     status: true,
     description: "",
-    fertility: 0,
+    fertility: true,
     feedback: "",
     rating: 5,
     price: 1000,
@@ -54,12 +58,16 @@ const MatchingBirdComponent: React.FC = () => {
     _id: "",
     birdName: "",
     age: 1,
-    typeOfBirdID: "",
+    typeID: {
+      typeID: "",
+      nameType: "",
+      quantity: 0,
+    },
     images: [],
     gender: true,
     status: true,
     description: "",
-    fertility: 0,
+    fertility: true,
     feedback: "",
     rating: 5,
     price: 1000,
@@ -154,7 +162,7 @@ const MatchingBirdComponent: React.FC = () => {
     const dataBody1 = {
       birdName: selectedBird1.birdName,
       age: selectedBird1.age,
-      typeOfBirdID: selectedBird1.typeOfBirdID,
+      typeOfBirdID: selectedBird1.typeID,
       images: selectedBird1.images,
       gender: selectedBird1.gender,
       description: selectedBird1.description,
@@ -166,7 +174,7 @@ const MatchingBirdComponent: React.FC = () => {
     const dataBody2 = {
       birdName: selectedBird2.birdName,
       age: selectedBird2.age,
-      typeOfBirdID: selectedBird2.typeOfBirdID,
+      typeOfBirdID: selectedBird2.typeID,
       images: selectedBird2.images,
       gender: selectedBird2.gender,
       description: selectedBird2.description,
@@ -298,7 +306,7 @@ const MatchingBirdComponent: React.FC = () => {
                     Gender: {selectedBird1.gender ? "Male" : "Female"}
                   </Typography>
                   <Typography variant="body2">
-                    Type: {selectedBird1.typeOfBirdID}
+                    Type: {selectedBird1.typeID.nameType}
                   </Typography>
                   <Typography variant="body2">
                     Price: {selectedBird1.price}
@@ -335,7 +343,7 @@ const MatchingBirdComponent: React.FC = () => {
                     Gender: {selectedBird2.gender ? "Male" : "Female"}
                   </Typography>
                   <Typography variant="body2">
-                    Type: {selectedBird2.typeOfBirdID}
+                    Type: {selectedBird2.typeID.nameType}
                   </Typography>
                   <Typography variant="body2">
                     Price: {selectedBird2.price}
