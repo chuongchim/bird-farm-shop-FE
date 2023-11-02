@@ -142,19 +142,19 @@ export default function HeaderComponent() {
             <Container className='header-component--banner' maxWidth="xl">
                 <Toolbar>
                     <Typography variant="h4" >CARDONE</Typography>
-                    <Typography variant="h6">UPGRADE to a Fully-fledged Kardone!</Typography>
+                    <Typography variant="h6" style={{ fontSize: '1em', fontWeight: 'bold' }}>UPGRADE to a Fully-fledged Kardone!</Typography>
                     <Typography variant="subtitle1"><span>Featuring a additional pages, plugins, beautiful pictures and fully functionality!</span></Typography>
                     <Button variant="contained">Shop now!</Button>
                 </Toolbar>
             </Container>
-            <Container className='header-component--infor' maxWidth="xl">
-                <Toolbar sx={{ marginLeft: '150px', }}>
-                    <Typography><FacebookIcon className='header-component--infor__icon'></FacebookIcon></Typography>
-                    <Typography><TwitterIcon className='header-component--infor__icon'></TwitterIcon></Typography>
-                    <Typography><InstagramIcon className='header-component--infor__icon'></InstagramIcon></Typography>
-                    <Typography><YouTubeIcon className='header-component--infor__icon'></YouTubeIcon></Typography>
-                    <Typography className='header-component--infor__span'>
-                        <span>Localtion: 123, Akalaka, FPTU Mana, Ashaliba</span>
+            <Container className='header-component--infor' maxWidth="xl" sx={{ height: '60px'}}>
+                <Toolbar sx={{ marginLeft: '150px', display: 'flex', alignItems: 'center' }}>
+                    <Typography><FacebookIcon className='header-component--infor__icon' sx={{ fontSize: '30px' }}></FacebookIcon></Typography>
+                    <Typography><TwitterIcon className='header-component--infor__icon' sx={{ fontSize: '30px' }}></TwitterIcon></Typography>
+                    <Typography><InstagramIcon className='header-component--infor__icon' sx={{ fontSize: '30px' }}></InstagramIcon></Typography>
+                    <Typography><YouTubeIcon className='header-component--infor__icon' sx={{ fontSize: '30px' }}></YouTubeIcon></Typography>
+                    <Typography className='header-component--infor__span' sx={{ paddingBottom: '0px' }}>
+                        <span>Localtion: 123, Akalaka, FPTU Mana</span>
                     </Typography>
                 </Toolbar>
             </Container>
@@ -177,11 +177,11 @@ export default function HeaderComponent() {
                             backgroundColor: 'black'
                         }}
                     >
-                        LOGO
+                        LOGOA
                     </Typography>
                     <Box sx={{ width: '100%', backgroundColor: 'white' }}>
                         <Tabs sx={{ width: '100%', backgroundColor: 'white' }} centered>
-                            <LinkTab className="button-with-border" label="Home" href='/' style={{ color: 'black', margin: '5px', fontSize: '16px', marginLeft: '100px' }} />
+                            <LinkTab className="button-with-border" label="Home" href='/' style={{ color: 'black', margin: '5px', fontSize: '16px', marginLeft: '10px' }} />
 
                             <Button
                                 onMouseEnter={handleBirdMouseEnter}
@@ -208,16 +208,16 @@ export default function HeaderComponent() {
                             <PopupStateComponent label="Contact Us" isActive={true} index={3} />
                         </Tabs>
                     </Box>
-                    <Box sx={{ display: 'flex', float: 'left', marginRight: '50px' }}>
+                    <Box sx={{ display: 'flex', marginRight: '50px' }}>
                         <IconButton aria-label="cart" sx={{ marginRight: '15px' }}>
-                            <StyledBadge badgeContent={4} color="secondary">
+                            <StyledBadge color="secondary">
                                 <Link href='/cart'>
                                     <ShoppingCartIcon />
                                 </Link>
                             </StyledBadge>
                         </IconButton>
                         <IconButton>
-                            <Badge color="secondary" badgeContent={100}>
+                            <Badge color="secondary" >
                                 <MailIcon />
                             </Badge>
                         </IconButton>
