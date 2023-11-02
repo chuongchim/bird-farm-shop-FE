@@ -149,11 +149,11 @@ export default function HeaderComponent() {
             </Container>
             <Container className='header-component--infor' maxWidth="xl" sx={{ height: '60px'}}>
                 <Toolbar sx={{ marginLeft: '150px', display: 'flex', alignItems: 'center' }}>
-                    <Typography><FacebookIcon className='header-component--infor__icon' sx={{ fontSize: '30px' }}></FacebookIcon></Typography>
-                    <Typography><TwitterIcon className='header-component--infor__icon' sx={{ fontSize: '30px' }}></TwitterIcon></Typography>
-                    <Typography><InstagramIcon className='header-component--infor__icon' sx={{ fontSize: '30px' }}></InstagramIcon></Typography>
+                    <Typography><FacebookIcon className='header-component--infor__icon' sx={{ fontSize: '30px', marginRight:'10px' }}></FacebookIcon></Typography>
+                    <Typography><TwitterIcon className='header-component--infor__icon' sx={{ fontSize: '30px', marginRight:'10px' }}></TwitterIcon></Typography>
+                    <Typography><InstagramIcon className='header-component--infor__icon' sx={{ fontSize: '30px', marginRight:'10px' }}></InstagramIcon></Typography>
                     <Typography><YouTubeIcon className='header-component--infor__icon' sx={{ fontSize: '30px' }}></YouTubeIcon></Typography>
-                    <Typography className='header-component--infor__span' sx={{ paddingBottom: '0px' }}>
+                    <Typography className='header-component--infor__span' sx={{ paddingBottom: '0px', paddingLeft:'700px' }}>
                         <span>Localtion: 123, Akalaka, FPTU Mana</span>
                     </Typography>
                 </Toolbar>
