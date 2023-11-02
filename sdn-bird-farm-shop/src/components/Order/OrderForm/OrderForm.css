@@ -1,0 +1,22 @@
+/* OrderForm.css */
+.order-form-container {
+    width: 100px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .form-title {
+    font-size: 24px;
+    margin: 20px;
+  }
+  
+  .form-input {
+    margin-bottom: 10px;
+  }
+  
+  .submit-button {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
