@@ -27,6 +27,7 @@ import './Login.css'
 import { ButtonGroup, IconButton, InputAdornment } from '@mui/material';
 import { Email, Height, Visibility, VisibilityOff } from '@mui/icons-material';
 import { jwtDecode } from "jwt-decode";
+// import { toast } from 'react-toastify';
 
 
 
@@ -139,7 +140,7 @@ export default function SignIn() {
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const body = formData
-    console.log(body);
+    console.log(JSON.stringify(body));
     console.log(baseUrl + 'v1/auth' + '/login');
 
     // const obj = apiService.postData('auth' + '/login', body)
@@ -161,15 +162,24 @@ export default function SignIn() {
         "Cache-Control": "no-cache"
       },
       body: JSON.stringify(body)
-    }).then((rep) => {
+    }).then((responseStatus) => {
+      console.log(responseStatus);
+      if (responseStatus.status === 200) {
+        // toast.success('Authentication success!')
+        return responseStatus.json();
 
+      }
     }).then((res: any) => {
       console.log(res);
       localStorage.setItem("token", res.accessToken)
-      // const decoded = jwtDecode(res.accessToken);
-
-      // console.log(decoded);
+      localStorage.setItem("isLogined", "isLogined")
+      
+      const decoded = jwtDecode(res.accessToken);
+      localStorage.setItem("decode", JSON.stringify(decoded))
+      console.log(decoded);
       window.location.href = '/'
+    }).catch(error => {
+      // toast.error('Authentication faild!')
     })
   };
 

@@ -53,6 +53,9 @@ export default function HeaderComponent() {
 
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const [isLogigned, setIsLogined] = React.useState<string | null>();
+
+
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -104,6 +107,7 @@ export default function HeaderComponent() {
                 setState({ ...state, [anchor]: open });
             };
 
+
     const list = (anchor: Anchor) => (
         <Box
             sx={{ width: anchor === 'top' ? 'auto' : 250 }}
@@ -127,6 +131,8 @@ export default function HeaderComponent() {
         </Box>
     );
 
+
+
     const handleChangePage = (index: number) => {
         if (index === 0) {
             window.location.href = '/bird';
@@ -134,6 +140,21 @@ export default function HeaderComponent() {
 
     }
 
+    React.useEffect(() => {
+        const logined = localStorage.getItem("isLogined")
+        setIsLogined(logined);
+    }, [])
+
+    const hanldeLogout = () => {
+        localStorage.setItem("token", "");
+        localStorage.setItem("isLogined", "")
+        localStorage.setItem("decode", "")
+        window.location.href = "/auth/login"
+    }
+
+    const handleLogin = () => {
+        window.location.href = "/auth/login"
+    }
 
 
     return (
@@ -167,7 +188,6 @@ export default function HeaderComponent() {
                         component="a"
                         href="#app-bar-with-responsive-menu"
                         sx={{
-
                             display: { xs: 'none', md: 'flex' },
                             fontFamily: 'monospace',
                             fontWeight: 700,
@@ -181,7 +201,7 @@ export default function HeaderComponent() {
                     </Typography>
                     <Box sx={{ width: '100%', backgroundColor: 'white' }}>
                         <Tabs sx={{ width: '100%', backgroundColor: 'white' }} centered>
-                            <LinkTab className="button-with-border" label="Home" href='/' style={{ color: 'black', margin: '5px', fontSize: '16px', marginLeft: '10px' }} />
+                            <LinkTab className="button-with-border" label="Home" href='/' style={{ color: 'black', margin: '5px', fontSize: '16px', marginLeft: '50px' }} />
 
                             <Button
                                 onMouseEnter={handleBirdMouseEnter}
@@ -208,7 +228,7 @@ export default function HeaderComponent() {
                             <PopupStateComponent label="Contact Us" isActive={true} index={3} />
                         </Tabs>
                     </Box>
-                    <Box sx={{ display: 'flex', marginRight: '50px' }}>
+                    <Box sx={{ display: 'flex', float: 'left' }}>
                         <IconButton aria-label="cart" sx={{ marginRight: '15px' }}>
                             <StyledBadge color="secondary">
                                 <Link href='/cart'>
@@ -222,37 +242,65 @@ export default function HeaderComponent() {
                             </Badge>
                         </IconButton>
                     </Box>
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ marginRight: '50px' }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Link href="/user-profile">
-                                        <Typography textAlign="center">{setting}</Typography>
-                                    </Link>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
+                    {isLogigned != "isLogined" ? (
+                        <>
+                            <Button
+                                
+                                onClick={handleLogin}
+                            >
+                                Login
+                            </Button>
+                        </>
+
+                    ) : (
+                        <>
+                            <Box sx={{ flexGrow: 0 }}>
+                                <Tooltip title="Open settings">
+                                    <IconButton onClick={handleOpenUserMenu} sx={{ marginRight: '50px' }}>
+                                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                    </IconButton>
+                                </Tooltip>
+
+                                <Menu
+                                    sx={{ mt: '45px' }}
+                                    id="menu-appbar"
+                                    anchorEl={anchorElUser}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={Boolean(anchorElUser)}
+                                    onClose={handleCloseUserMenu}
+                                >
+
+                                    <MenuItem onClick={handleCloseUserMenu}>
+                                        <Button>
+                                            <Link style={{ textDecoration: "none", color: "black" }} href="/user-profile">
+                                                <Typography textAlign="center">Profile</Typography>
+                                            </Link>
+                                        </Button>
+                                    </MenuItem>
+
+
+                                    <MenuItem onClick={handleCloseUserMenu}>
+                                        <Button onClick={hanldeLogout} href="/user-profile">
+                                            <Typography style={{ textDecoration: "none", color: "black" }} textAlign="center">Logout</Typography>
+                                        </Button>
+                                    </MenuItem>
+
+
+
+                                </Menu>
+
+                            </Box>
+                        </>
+
+                    )}
                 </Toolbar>
             </Container>
         </AppBar>
