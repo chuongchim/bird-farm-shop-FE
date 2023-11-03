@@ -12,7 +12,7 @@ const OrderPageComponent = () => {
     return (
         <div className='order-page-component'>
             <HeaderComponent></HeaderComponent>
-            <Container sx={{ marginTop: '250px' }}>
+            <Container sx={{ marginTop: '100px' }}>
                 <OrderFormComponent listProduct={productList}></OrderFormComponent>
             </Container>
             <FooterComponent></FooterComponent>

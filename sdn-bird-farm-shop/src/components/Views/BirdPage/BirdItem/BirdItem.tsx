@@ -25,6 +25,7 @@ export default function BirdItem({
   return (
     <>
       <Card className="bird-page-component--card-bird-list">
+
         <CardMedia
           src={
             bird.images
@@ -48,6 +49,12 @@ export default function BirdItem({
           >
             {bird.birdName ? bird.birdName : "Chim"}
           </Typography>
+          {bird.status === false && (
+
+            <div style={{ position: 'absolute', top: 0, right: 0, width: '80px', textAlign: 'center', height: '30px', backgroundColor: 'black', color: 'white' }}>
+              Sold
+            </div>
+          )}
           <Typography
             variant="h6"
             style={{
@@ -87,6 +94,7 @@ export default function BirdItem({
             size="small"
             sx={{ display: "flex", flex: "1", backgroundColor: "#E9034F" }}
             onClick={() => handleAddToCart(bird)}
+            disabled={bird.status ? false : true}
           >
             Add to Cart
           </Button>
