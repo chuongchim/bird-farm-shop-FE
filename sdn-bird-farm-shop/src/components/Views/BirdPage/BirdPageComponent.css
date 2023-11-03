@@ -1,127 +1,61 @@
 .bird-page-component .bird-card {
-    cursor: pointer;
-    transition: background-color 0.3s;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .bird-page-component .bird-card:hover {
-    background-color: #f0f0f0;
-}
-
-.bird-page-component .MuiButton-containedPrimary {
-    background-color: var(--sec-bg-color);
-    color: white;
-    /* Change text color to white */
-}
-
-.bird-page-component .MuiButton-containedSecondary {
-    background-color: var(--main-bg-color);
-    color: white;
-    /* Change text color to white */
-}
-
-.bird-page-component .MuiButton-containedPrimary:hover {
-    background-color: var(--sec-bg-color);
-    color: white;
-    /* Change text color to white */
-}
-
-.bird-page-component .MuiButton-containedSecondary:hover {
-    background-color: var(--main-bg-color);
-    color: white;
-    /* Change text color to white */
-}
-
-.bird-page-component--card-bird-list {
-    width: 100%;
-    margin-top: 10px;
-}
-
-.bird-page-component--card-bird-list:hover {
-    transform: scale(1.1);
-    /* Increase the size by 20% on hover */
-    transition: transform 0.3s;
-    /* Add a transition effect for the scale */
-    cursor: pointer;
-
-}
-
-.bird-page-component--card-bird-list {
-    width: 100%;
-    height: 100%;
-}
-
-.bird-page-component--card-bird-list .MuiCard-root {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-}
-
-.bird-page-component--card-bird-list .MuiCard-root:hover {
-    transform: scale(1.05);
-}
-
-.bird-page-component--card-bird-list .MuiCardActions-root {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px;
-}
-
-.bird-page-component--card-bird-list .MuiButton-root {
-    flex: 1;
-    margin: 0 8px;
-}
-
-.bird-page-component--card-bird-list .MuiCardContent-root {
-    flex: 1;
-    padding: 16px;
-}
-
-.bird-page-component--card-bird-list .MuiTypography-root {
-    font-size: 14px;
+  background-color: #f0f0f0;
 }
 
 .bird-page-component--filter-section {
-    margin-right: 5rem;
-    padding: 1rem;
-    font-size: 10px;
+  margin-right: 3rem;
+  padding: 1rem;
+  font-size: 10px;
 }
 
 /* Apply styles to the Chip section for bird types */
 .bird-page-component--filter-section .chip-container {
-    display: flex;
-    flex-wrap: wrap;
-    /* margin: 1rem; */
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  /* margin: 1rem; */
+  align-items: center;
 }
 
 .bird-page-component--filter-section .chip {
-    margin: 0.5rem;
+  margin: 0.5rem;
 }
 
-.bird-page-component--filter-section .MuiFormLabel-root{
-    display: block;
-    font-size: 15px;
-    margin-top: 15px;
-
+.bird-page-component--filter-section .MuiFormLabel-root {
+  display: block;
+  font-size: 15px;
+  margin-top: 15px;
 }
 
-.bird-page-component--container{
-    width: 100%;
-    padding-left: -20px;
-    margin-left: -20px;
+.bird-page-component--container {
+  width: 100%;
+  padding-left: -20px;
+  margin-left: -20px;
 }
 
 .bird-page-component--filter-section .custom-radio {
-    color: #E9034F;
-    &.Mui-checked {
-      color: #E9034F;
-    }
+  color: #e9034f;
+  &.Mui-checked {
+    color: #e9034f;
   }
+}
 
-  .bird-page-component--show-chip-filter{
-    width: 100%;
-    height: 50px;
-  }
+.bird-page-component--show-chip-filter {
+  width: 100%;
+  height: 50px;
+}
+#bird__introduction img {
+  margin: 10px;
+  width: 80%;
+}
+#bird__introduction h3 {
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+#bird__introduction {
+  align-items: center;
+}

@@ -1,6 +1,6 @@
 // UploadImgWidget.tsx
 import React, { useEffect, useRef, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button } from "@mui/material";
 
 interface UploadImgWidgetProps {
   onImagesUpload: (imageUrls: string) => void;

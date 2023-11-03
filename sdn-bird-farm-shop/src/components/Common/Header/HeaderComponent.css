@@ -1,8 +1,8 @@
 :root {
   --black-color: black;
-  --main-bg-color: #E9034F;
+  --main-bg-color: #e9034f;
   --white-color: #fff;
-  --button-hover-color: #FAC74F;
+  --button-hover-color: #fac74f;
 }
 
 /* ... */
@@ -13,7 +13,7 @@
 }
 
 .button-with-border::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   right: 0;
@@ -88,12 +88,15 @@
   padding-bottom: 20px;
   font-size: 100px;
 }
-
+.logo {
+  display: flex;
+  margin-left: 80px;
+  width: 100px;
+}
 /* HeaderComponent.css */
 /* ... (Previous CSS rules) ... */
 
 @media (max-width: 768px) {
-
   /* Responsive styles for screens with a max-width of 768px (e.g., mobile devices) */
   .header-component--banner {
     text-align: center;
@@ -115,6 +118,9 @@
   .header-component--infor__span {
     padding-left: 0;
     text-align: center;
+  }
+  .logo {
+    display: none;
   }
 }
 

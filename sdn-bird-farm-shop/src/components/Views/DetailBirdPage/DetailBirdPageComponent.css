@@ -238,11 +238,12 @@ intuitive.css
   width: 90%;
   margin: 0 auto;
   border: 1px solid #ccc;
-  background-color: black;
+  background-color: #e9034f;
   color: white;
   padding: 10px 0;
   text-align: center;
   font-weight: bold;
+  margin-bottom: 30px;
 }
 #addToCart:hover {
   background-color: white;
@@ -260,5 +261,5 @@ intuitive.css
   font-size: 1.4rem;
   font-weight: 800;
   margin-bottom: 10px;
-  color: rgb(238, 68, 68);
+  color: #e9034f;
 }

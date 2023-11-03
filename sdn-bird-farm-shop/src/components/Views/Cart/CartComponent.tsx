@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import VoucherSelect from './VoucherSelectComponent';
 import { BirdInterface } from '../../../models/Bird';
 import { ProductInterface } from '../../../models/Products';
 import HeaderComponent from '../../Common/Header/HeaderComponent';
@@ -36,7 +35,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import VoucherSelectComponent from './VoucherSelectComponent';
 import ApiService from '../../../utils/ApiService';
 import {
     Remove as RemoveIcon,
@@ -58,57 +56,29 @@ import Swal from 'sweetalert2';
 const APISERVICE = new ApiService
 
 const CartComponent = () => {
-    const [cartData, setCartData] = useState([]);
+    const [cartData, setCartData] = useState<BirdInterface[]>([]);
     const [openDialog, setOpenDialog] = useState(false);
     const [itemToRemove, setItemToRemove] = useState(null);
     const [totalPrice, setTotalPrice] = useState(0);
-    const [shippingFee] = useState(10); // You can set your own shipping fee value
-    const [voucher, setVoucher] = useState();
-    const [selectedVoucher, setSelectedVoucher] = useState(0);
-    const [showVoucherDialog, setShowVoucherDialog] = useState(false); // State to control the visibility of the voucher selection component
-    const [selectedItems, setSelectedItems] = useState([]);
-    const [voucherList, setVoucherList] = useState([]);
+    const [shippingFee] = useState(1000); // You can set your own shipping fee value
+    const [selectedItems, setSelectedItems] = useState<BirdInterface[]>([]);
     const [numberOfProduct, setNumberOfProduct] = useState(0);
     const [listProduct, setListProduct] = useState<string[]>([]);
-    const [listVoucher, setListVoucher] = useState<number[]>([]);
-    const [selectedVoucherList, setSelectedVoucherList] = useState<Object[]>([]);
     const [mergedCartList, setMergedCartList] = useState<Object[]>([])
     const arrayProduct: string[] = []
-
-    const handleSelectVoucher = () => {
-        setShowVoucherDialog(true); // Show the voucher selection component
-    };
-
-    const handleCloseVoucherDialog = () => {
-        setShowVoucherDialog(false); // Close the voucher selection component
-    };
-
+    const [checked, setChecked] = useState(false);
 
     // Load cart data from local storage on component mount
     useEffect(() => {
         const storedCart = localStorage.getItem('cart');
         if (storedCart) {
+            console.log(JSON.parse(storedCart));
             setCartData(JSON.parse(storedCart));
         }
     }, []);
 
     // Create a new array with merged items by productID
-    const mergedCart = cartData.reduce((acc: any, item: any) => {
-        const existingItem = acc.find((accItem: any) => {
-            if (accItem.typeOfProduct != 'bird' && accItem.productID === item.productID)
-                return true
-        });
-        if (existingItem) {
-            console.log("existingItem: ", existingItem);
-            // Item with the same productID already exists; update its quantity
-            existingItem.quantity += 1;
-            // setCartData(...existingItem, existingItem.quantity)
-        } else {
-            // Item doesn't exist in the merged cart; add it
-            acc.push({ ...item, quantity: 1 });
-        }
-        return acc;
-    }, []);
+
 
     const handleCheckout = () => {
         alert('Checkout functionality will be implemented here.');
@@ -134,77 +104,94 @@ const CartComponent = () => {
     // Calculate the total price of products
     const calculateTotalPrice = () => {
         let total = 0;
-        for (const product of mergedCart) {
-            total += product.price * product.quantity;
-        }
+        selectedItems.map((item: BirdInterface) => {
+            total += item.price
+        })
+
         return total;
     };
 
-    const handleCheckboxChange = (productId: string) => {
-        // Find the selected item by productId
-        const selectedItem = cartData.find((item: any) => item.productID === productId);
-        if (selectedItem) {
+    const handleCheckboxChange = (productID: string) => {
+        const isChecked = selectedItems.some(item => item._id === productID)
 
-            if (selectedItems.includes(selectedItem)) {
-                // If it's already selected, remove it
-                setSelectedItems((prevSelectedItems) =>
-                    prevSelectedItems.filter((item) => item !== selectedItem)
-                );
+        const itemIndex = cartData.findIndex((item: BirdInterface) => item._id === productID);
+
+        if (itemIndex !== -1) {
+            const updatedSelectedItems: BirdInterface[] = [...selectedItems];
+
+            if (updatedSelectedItems.includes(cartData[itemIndex])) {
+
+                // Uncheck: Remove the item from selectedItems
+                updatedSelectedItems.splice(updatedSelectedItems.indexOf(cartData[itemIndex]), 1);
+
+                console.log("Remove: ", productID);
             } else {
-                // If it's not selected, add it
-                listProduct.push(productId)
-                setSelectedItems((prevSelectedItems) => [...prevSelectedItems, selectedItem]);
+                updatedSelectedItems.push(cartData[itemIndex]);
+
             }
-        };
 
-        console.log(selectedItem);
+            setSelectedItems(updatedSelectedItems);
 
-    }
-
+        }
+    };
 
     useEffect(() => {
-        const newTotalPrice = selectedItems.reduce(
-            (total, selectedItem: any) => total + selectedItem.price,
-            0
-        );
-        setTotalPrice(newTotalPrice);
+        const totalPrice = calculateTotalPrice() + shippingFee;
+        localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
+        // if (selectedItems.length === 1) {
+        //     selectedItems.splice(selectedItems.indexOf(selectedItems[0]), 1);
+        // }
+        selectedItems.map((bird: BirdInterface, index: number) => {
+            const updatedCart = [...selectedItems, bird];
+            // setListProduct(updatedCart);
+            console.log(updatedCart);
+
+            const updateListId = [...listProduct, bird._id];
+            setListProduct(updateListId);
+
+        })
+
     }, [selectedItems]);
 
-    useEffect(() => {
-        APISERVICE.getData('voucher/getAllVoucher')
-            .then(data => {
-                setVoucherList(data)
-            })
 
-        console.log("mergedCart: ", typeof (mergedCart));
-    }, [])
+    // useEffect(() => {
+    //     const newTotalPrice = selectedItems.reduce(
+    //         (total, selectedItem: any) => total + selectedItem.price,
+    //         0
+    //     );
+    //     setTotalPrice(newTotalPrice);
+    // }, [selectedItems]);
 
-    const SetVoucherSelected = (item: any) => {
-        selectedVoucherList.push(item)
-        setSelectedVoucher(item.voucherID)
-        listVoucher.push(item.voucherID)
-        console.log(listVoucher);
-        console.log(selectedVoucherList);
-
-    }
-
-    useEffect(() => {
-        console.log(listProduct);
-
-    }, [selectedItems])
 
     const handleCheckOut = () => {
-        sessionStorage.setItem("listProduct", JSON.stringify(listProduct))
-        sessionStorage.setItem("listVoucher", JSON.stringify(listVoucher))
-        Swal.fire(
-            'Check out  Success!',
-            'Your product has been Order !!!',
-            'success'
-        );
-        setTimeout (() => {
 
-            window.location.href = '/order-page'
-        }, 1000)
+        try {
+
+            console.log(listProduct);
+            sessionStorage.setItem("listProduct", JSON.stringify(listProduct))
+            Swal.fire(
+                'Check out  Success!',
+                'Your product has been Order !!!',
+                'success'
+            );
+            setTimeout(() => {
+
+                window.location.href = '/order-page'
+            }, 1000)
+        }
+        catch {
+            Swal.fire(
+                'Somthing wrong!',
+                'Please check your products !!!',
+                'error'
+            );
+            setTimeout(() => {
+
+                window.location.href = '/order-page'
+            }, 1000)
+        }
+
+
     }
 
     return (
@@ -237,14 +224,14 @@ const CartComponent = () => {
                                             </Typography>
                                         </Grid>
                                         <hr style={{ margin: "1rem 0" }} />
-                                        {mergedCart.length > 0 ? mergedCart.map((item: any, index: number) => (
+                                        {cartData.length > 0 ? cartData.map((item: any, index: number) => (
 
                                             <>
                                                 <Grid container spacing={4} alignItems="center">
                                                     <Grid item xs={12} sm={1}>
                                                         <Checkbox
                                                             // checked={selectedItems.includes(item)}
-                                                            onChange={() => handleCheckboxChange(item.productID)}
+                                                            onChange={() => handleCheckboxChange(item._id)}
                                                         />
                                                     </Grid>
                                                     <Grid item xs={12} sm={2}>
@@ -373,66 +360,6 @@ const CartComponent = () => {
                                                 </TextField>
                                             </FormControl>
                                         </div>
-                                        <Typography variant="subtitle1" style={{ textTransform: "uppercase", marginBottom: "0.5rem" }}>
-                                            Vouchers
-                                        </Typography>
-                                        <div style={{ marginBottom: "1rem" }}>
-                                            <Select
-                                                value={selectedVoucher}
-                                                label="Select Voucher"
-                                                sx={{ width: '100%' }}
-                                            >
-                                                {voucherList.map((item: any, index) => (
-                                                    <MenuItem onClick={() => { SetVoucherSelected(item) }} key={index} value={item.voucherName}>
-                                                        <Card
-
-                                                            style={{
-                                                                width: '100%',
-                                                                border: '1px solid #ccc',
-                                                                padding: '10px',
-                                                                marginBottom: '10px',
-                                                                display: 'flex',
-                                                                flexDirection: 'column',
-                                                            }}
-                                                        >
-                                                            <CardHeader>
-                                                                <Typography style={{ fontSize: '15px', fontWeight: 'bold' }} variant="subtitle1">{item.voucherName}</Typography>
-                                                            </CardHeader>
-
-                                                            <span style={{ fontSize: '12px' }}>Value: {item.value}</span>
-                                                            <span style={{ fontSize: '12px' }}>
-                                                                Start Date: {item.startDate}
-                                                            </span>
-                                                            <span style={{ fontSize: '12px' }}>
-                                                                End Date: {item.endDate}
-                                                            </span>
-                                                        </Card>
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
-                                        </div>
-                                        <hr style={{ margin: "1rem 0" }} />
-                                        {selectedVoucherList.length > 0 ?
-                                            selectedVoucherList.map((item: any, index) => (
-                                                <Card
-
-                                                    style={{
-                                                        width: '100%',
-                                                        border: '1px solid #ccc',
-                                                        padding: '10px',
-                                                        marginBottom: '10px',
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                    }}
-                                                >
-                                                    <CardHeader>
-                                                        <Typography style={{ fontSize: '15px', fontWeight: 'bold' }} variant="subtitle1">{item.voucherName}</Typography>
-                                                    </CardHeader>
-
-                                                    <span style={{ fontSize: '12px' }}>Value: {item.value}</span>
-
-                                                </Card>
-                                            )) : (<></>)}
                                         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "2rem" }}>
                                             <Typography variant="subtitle1" style={{ textTransform: "uppercase" }}>
                                                 Total price

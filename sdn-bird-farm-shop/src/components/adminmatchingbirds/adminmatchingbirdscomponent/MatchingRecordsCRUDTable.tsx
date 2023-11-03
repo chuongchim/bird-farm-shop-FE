@@ -25,8 +25,10 @@ import Modal from "@mui/material/Modal";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
 import Chip from "@mui/material/Chip";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 import { MatchingRecordInterface } from "../../../models/MatchingBird";
+
 
 const style = {
   position: "absolute",
@@ -88,7 +90,7 @@ const MatchingRecordsCRUDTable: React.FC = () => {
         // Handle other cases if necessary
         break;
     }
-  
+
     // Send API request to update phase with the provided message (updateMessage)
     fetch(`http://localhost:5000/v1/matchingrecord/phase/${id}`, {
       method: "PUT",
@@ -112,7 +114,6 @@ const MatchingRecordsCRUDTable: React.FC = () => {
         // Handle error feedback to the user here if needed
       });
   };
-  
 
   const handleApprove = (id: string, pendingMessage: string) => {
     // Open modal for inputting message
@@ -312,7 +313,7 @@ const MatchingRecordsCRUDTable: React.FC = () => {
         component="div"
         sx={{ padding: "20px" }}
       >
-        Matching Record List
+        Matching Record
       </Typography>
       <Divider />
       <div style={{ display: "flex" }}>
@@ -363,10 +364,23 @@ const MatchingRecordsCRUDTable: React.FC = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => handleUpdateSubmit(objectID)}
-              style={{ marginTop: 10 }}
+              onClick={() => {
+                handleUpdateSubmit(objectID);
+                setUpdateMessage("");
+              }}
+              style={{ marginTop: 10, marginRight: 10 }}
             >
               Submit
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => {
+                setUpdateMessage(""); // Clear the TextField value
+                setUpdateOpen(false); // Close the modal
+              }}
+            >
+              Cancel
             </Button>
           </Box>
         </Modal>
@@ -455,6 +469,7 @@ const MatchingRecordsCRUDTable: React.FC = () => {
                         </div>
                       )}
                       {row.phase !== "pending" &&
+                        row.phase !== "raising" &&
                         row.phase !== "denied" &&
                         row.phase !== "canceled" && (
                           <Button
@@ -465,9 +480,11 @@ const MatchingRecordsCRUDTable: React.FC = () => {
                             Update
                           </Button>
                         )}
-                      {(row.phase === "denied" || row.phase === "canceled") && (
+                      {(row.phase === "raising" ||
+                        row.phase === "denied" ||
+                        row.phase === "canceled") && (
                         <IconButton disabled>
-                          <EditIcon />
+                          <HighlightOffIcon />
                         </IconButton>
                       )}
                     </TableCell>
