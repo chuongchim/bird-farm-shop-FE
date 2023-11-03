@@ -46,7 +46,7 @@ export default function Register() {
         phone: "",
         password: "",
         confirmPassword: "",
-        gender: true,
+        Gender: true,
         dateOfBirth: dayjs(),
         address: "1",
         role: "CUSTOMER"
@@ -59,7 +59,7 @@ export default function Register() {
         email: "",
         password: "",
         confirmPassword: "",
-        gender: "",
+        Gender: "",
         phone: "",
         dateOfBirth: ""
     });
@@ -238,7 +238,7 @@ export default function Register() {
                                         : ""
 
         if (errorMessage)
-            setIsValid(true);
+            setIsValid(false);
         setFormErrors((prevErrors) => ({
             ...prevErrors,
             [name]: errorMessage,
@@ -264,27 +264,32 @@ export default function Register() {
         event.preventDefault();
         console.log(formData);
         console.log(apiBaseUrl);
-        
+
+        const email = formData.email;
+        const parts = email.split('@');
+        const username = parts[0];
+        console.log(username); 
         const requestData = {
+            username: username,
             firstName: formData.firstName,
             lastName: formData.lastName,
             email: formData.email,
             phone: formData.phone,
             password: formData.password,
-            gender: formData.gender,
-            dateOfBirth: formData.dateOfBirth.format('YYYY-MM-DD'),
-            address: "1",
+            Gender: formData.Gender,
+            dateOfBirth: formData.dateOfBirth.format('DD/MM/YYYY'),
+            address: "null",
             role: "CUSTOMER"
         }
-        localStorage.setItem("userRegister", JSON.stringify(requestData))
+        console.log("userRegister", JSON.stringify(requestData))
 
-        const obj = apiService.postData(baseUrl + '/register', requestData);
+        const obj = apiService.postData('/v1/auth/register', requestData);
         obj.then((res) => {
             setIsLoading(true);
             setTimeout(() => {
                 if (res) {
                     setIsLoading(false);
-                    window.location.href = '/auth/verify'
+                    window.location.href = '/v1/auth/login'
 
                 }
             }, 2000)
@@ -422,8 +427,8 @@ export default function Register() {
                                 <RadioGroup
                                     row
                                     aria-labelledby="demo-row-radio-buttons-group-label"
-                                    name="gender"
-                                    value={formData.gender}
+                                    name="Gender"
+                                    value={formData.Gender}
                                     onChange={handleInputChange}
 
 
@@ -481,7 +486,7 @@ export default function Register() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 2, mb: 2, height: '40px' }}
-
+                            disabled = {isValid ? false : true}
 
                         >
                             Register

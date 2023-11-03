@@ -60,7 +60,7 @@ const CartComponent = () => {
     const [openDialog, setOpenDialog] = useState(false);
     const [itemToRemove, setItemToRemove] = useState(null);
     const [totalPrice, setTotalPrice] = useState(0);
-    const [shippingFee] = useState(10); // You can set your own shipping fee value
+    const [shippingFee] = useState(1000); // You can set your own shipping fee value
     const [selectedItems, setSelectedItems] = useState<BirdInterface[]>([]);
     const [numberOfProduct, setNumberOfProduct] = useState(0);
     const [listProduct, setListProduct] = useState<string[]>([]);
@@ -107,6 +107,7 @@ const CartComponent = () => {
         selectedItems.map((item: BirdInterface) => {
             total += item.price
         })
+
         return total;
     };
 
@@ -135,7 +136,8 @@ const CartComponent = () => {
     };
 
     useEffect(() => {
-        calculateTotalPrice();
+        const totalPrice = calculateTotalPrice() + shippingFee;
+        localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
         // if (selectedItems.length === 1) {
         //     selectedItems.splice(selectedItems.indexOf(selectedItems[0]), 1);
         // }
