@@ -27,6 +27,7 @@ import './Login.css'
 import { ButtonGroup, IconButton, InputAdornment } from '@mui/material';
 import { Email, Height, Visibility, VisibilityOff } from '@mui/icons-material';
 import { jwtDecode } from "jwt-decode";
+import Swal from 'sweetalert2';
 // import { toast } from 'react-toastify';
 
 
@@ -168,6 +169,12 @@ export default function SignIn() {
         // toast.success('Authentication success!')
         return responseStatus.json();
 
+      } else {
+        Swal.fire(
+          'Authentication!',
+          'Your email or password is wrong !!!',
+          'error'
+      );
       }
     }).then((res: any) => {
       console.log(res);
