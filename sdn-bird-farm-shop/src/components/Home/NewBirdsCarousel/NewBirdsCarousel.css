@@ -1,0 +1,18 @@
+.carousel {
+  display: block;
+  width: 90%;
+  height: 10rem;
+  margin: 0 auto;
+}
+.home_title {
+  text-align: center;
+  color: #fac74f;
+  font-size: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+@media screen and (min-width: 768px) {
+  .carousel {
+    height: 25rem;
+  }
+}

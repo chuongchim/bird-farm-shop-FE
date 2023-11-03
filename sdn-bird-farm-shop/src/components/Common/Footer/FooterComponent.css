@@ -1,23 +1,30 @@
-.footer-content {
-    display: flex;
-    justify-content: center;
+/* .footer-content {
+  display: flex;
+  justify-content: center;
 }
 
 .footer-contact-item a {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 .footer-icon {
-    color: white;
-    float: left;
-
+  color: white;
+  float: left;
 }
 
 .footer-contact-item {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
-.footer-title{
-    padding-top: 30px;
+.footer-title {
+  padding-top: 30px;
+} */
+
+#footer .logo {
+  display: flex;
+  width: 100px;
+  margin-left: 0;
+  margin-bottom: 20px;
+  justify-items: center;
 }

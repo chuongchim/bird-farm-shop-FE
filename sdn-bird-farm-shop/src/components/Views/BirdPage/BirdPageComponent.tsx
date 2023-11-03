@@ -40,6 +40,8 @@ import ApiService from "../../../utils/ApiService";
 import { apiBaseUrl, basePonitUrl } from "../../../api/ApiConfig";
 import Swal from "sweetalert2";
 import CircularIndeterminate from "../../Common/Loading/Loading";
+import { TimesOneMobiledata } from "@mui/icons-material";
+import BirdItem from "./BirdItem/BirdItem";
 
 const APISERVICE = new ApiService();
 const URL = apiBaseUrl;
@@ -71,37 +73,53 @@ const BirdPageComponent: React.FC = () => {
   const [birdsList, setBirdsList] = React.useState<BirdInterface[]>([]);
   const [typeOfBird, settypeOfBird] = React.useState<TypeOfBirdInterface[]>([]);
   const [dataTOB, setDataTOB] = useState<TypeOfBirdInterface[]>([]);
-  const [filtData, setFiltData] = useState<BirdInterface[]>();
+  const [filtData, setFiltData] = useState<BirdInterface[]>(birdsList);
   const [page, setPage] = useState(1);
-  const [formData, setFormData] = React.useState({
+  const formDataInitialValue = {
     birdName: "",
     gender: true,
-    price: [200000, 10000000],
+    price: [500, 10000],
     age: [1, 15],
     fertility: true,
     typeOfBird: "",
-  });
+  };
+  const [formData, setFormData] = React.useState(formDataInitialValue);
 
   const [cart, setCart] = React.useState<BirdInterface[]>([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleAddToCart = (bird: BirdInterface) => {
-
     const updatedCart = [...cart, bird];
     setCart(updatedCart);
 
     console.log(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
 
     Swal.fire(
-        'Add to cart  Success!',
-        'Your bird has been in Your cart!!!',
-        'success'
+      "Add to cart  Success!",
+      "Your bird has been in Your cart!!!",
+      "success"
     );
+  };
+  React.useEffect(() => {
+    APISERVICE.getData("/v1/typeofbird/")
+      .then((data: TypeOfBirdInterface[]) => {
+        setDataTOB(data);
+        console.log("data type of bird: ", data);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
 
-};
+    APISERVICE.getData("/v1/bird/").then((data: BirdInterface[]) => {
+      setFiltData(data);
+      setBirdsList(data);
+    });
 
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
+  }, []);
   const handleDetail = (birdId: string) => {
     window.location.href = "/bird/detail/" + `${birdId}`;
   };
@@ -141,8 +159,13 @@ const BirdPageComponent: React.FC = () => {
     if (formData.typeOfBird === type) {
       handleInputChange({ target: { name: "typeOfBird", value: "" } });
       setFormData({ ...formData, typeOfBird: type });
+      setFiltData(birdsList);
     } else {
       handleInputChange({ target: { name: "typeOfBird", value: type } });
+      const newData = filtData.filter((item) => {
+        return item.typeID.nameType == type;
+      });
+      setFiltData(newData);
     }
   };
 
@@ -217,7 +240,7 @@ const BirdPageComponent: React.FC = () => {
           component="a"
           href="#"
           key="fertility"
-          label={`${formData.fertility}` ? "fertility: Yes" : "fertility: No"}
+          label={formData.fertility ? "Fertility: Yes" : "Fertility: No"}
         />
 
         // <Link color="inherit" key="fertility">
@@ -252,9 +275,10 @@ const BirdPageComponent: React.FC = () => {
     setShowClearIcon(event.target.value === "" ? "none" : "flex");
   };
 
-  const handleClick = (): void => {
+  const handleClick = () => {
+    setFiltData(birdsList);
+    setFormData(formDataInitialValue);
     // TODO: Clear the search input
-    console.log("clicked the clear icon...");
   };
   const filterBirdByRequest = () => {
     const dataBody = {
@@ -262,30 +286,25 @@ const BirdPageComponent: React.FC = () => {
       right_range_age: formData.age[1],
       gender: formData.gender.toString() == "true" ? true : false,
       fertility: formData.fertility.toString() == "true" ? true : false,
-      //   typeID: formData.typeOfBird,
       left_range_price: formData.price[0],
       right_range_price: formData.price[1],
     };
-  };
-  React.useEffect(() => {
-    APISERVICE.getData("/v1/typeofbird/")
-      .then((data: TypeOfBirdInterface[]) => {
-        setDataTOB(data);
-        console.log("type of bird data: ", data);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-
-    APISERVICE.getData("/v1/bird/").then((data: BirdInterface[]) => {
-      setFiltData(data);
-      setBirdsList(data);
-      console.log("asddsf: ", data);
+    console.log("birdList", birdsList);
+    let fillBirds: BirdInterface[] = birdsList.filter((item) => {
+      return (
+        item.fertility === dataBody.fertility &&
+        item.gender === dataBody.gender &&
+        item.age >= dataBody.left_range_age &&
+        item.age <= dataBody.right_range_age &&
+        item.price >= dataBody.left_range_price &&
+        item.price <= dataBody.right_range_price
+      );
     });
+    setFiltData(fillBirds);
 
-    const savedCart = localStorage.getItem("cart");
-    if (savedCart) {
-      setCart(JSON.parse(savedCart));
-    }
-  }, []);
+    console.log("data body: ", dataBody);
+    console.log("fill bird: ", fillBirds);
+  };
 
   const handleFilter = () => {
     console.log(JSON.stringify(formData));
@@ -305,9 +324,36 @@ const BirdPageComponent: React.FC = () => {
 
       <Container
         className="bird-page-component--container"
-        sx={{ marginTop: "250px" }}
+        sx={{ marginTop: "120px" }}
       >
         <Grid container spacing={3}>
+          <Grid
+            container
+            item
+            xs={12}
+            sx={{
+              marginLeft: "40px",
+              marginBottom: "20px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+            id="bird__introduction"
+          >
+            <Grid item xs={4}>
+              <img
+                height="200px"
+                src="https://images.unsplash.com/photo-1486365227551-f3f90034a57c?auto=format&fit=crop&q=80&w=1470&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              ></img>
+            </Grid>
+            <Grid item xs={5}>
+              <h3>Bird Shop</h3>
+              <p>
+                Have you ever wondered how grateful can be your pet for your
+                care and love? Let us be your assistants in making a nice
+                present...
+              </p>
+            </Grid>
+          </Grid>
           <Grid
             item
             xs={12}
@@ -315,9 +361,6 @@ const BirdPageComponent: React.FC = () => {
             md={3}
             className="bird-page-component--filter-section"
           >
-            <Typography variant="h4" fontWeight="bold">
-              Bird shop
-            </Typography>
             <Card>
               <CardContent>
                 <FormControl>
@@ -335,7 +378,6 @@ const BirdPageComponent: React.FC = () => {
                         <InputAdornment
                           position="end"
                           style={{ display: showClearIcon }}
-                          onClick={handleClick}
                         >
                           <ClearIcon />
                         </InputAdornment>
@@ -346,11 +388,12 @@ const BirdPageComponent: React.FC = () => {
                 <Button
                   onClick={filterBirdByRequest}
                   style={{
-                    width: "100px",
+                    width: "95px",
                     marginTop: "20px",
                     marginBottom: "10px",
                     fontSize: "15px",
                     float: "left",
+                    backgroundColor: "#FAC74F",
                   }}
                   variant="contained"
                   size="small"
@@ -358,15 +401,19 @@ const BirdPageComponent: React.FC = () => {
                 >
                   <TuneIcon style={{}}></TuneIcon>
                   <Typography
-                    style={{ textTransform: "unset", fontSize: "12px" }}
+                    style={{
+                      textTransform: "unset",
+                      fontSize: "12px",
+                    }}
                     variant="h6"
                   >
                     Filter
                   </Typography>
                 </Button>
                 <Button
+                  onClick={handleClick}
                   style={{
-                    width: "100px",
+                    width: "95px",
                     marginTop: "20px",
                     marginBottom: "10px",
                     marginLeft: "20px",
@@ -386,19 +433,19 @@ const BirdPageComponent: React.FC = () => {
                     Clear
                   </Typography>
                 </Button>
-                <Box onSubmit={handleFilter}>
+                <Box onSubmit={handleFilter} sx={{ px: 3 }}>
                   <FormLabel>Price</FormLabel>
                   <Slider
                     name="price"
                     value={formData.price}
                     onChange={handleInputChange}
                     valueLabelDisplay="auto"
-                    min={200000}
-                    max={10000000}
+                    min={500}
+                    max={10000}
                     sx={{ color: "#E9034F" }}
                   />
                   <br></br>
-                  <FormLabel>age</FormLabel>
+                  <FormLabel>Age</FormLabel>
                   <Slider
                     name="age"
                     value={formData.age}
@@ -453,7 +500,7 @@ const BirdPageComponent: React.FC = () => {
                     {dataTOB.map((item: TypeOfBirdInterface) => (
                       <Chip
                         label={item.nameType}
-                        onClick={() => handleBirdTypeFilter(item.typeID)}
+                        onClick={() => handleBirdTypeFilter(item.nameType)}
                         sx={{
                           backgroundColor:
                             formData.typeOfBird === item.nameType
@@ -467,11 +514,11 @@ const BirdPageComponent: React.FC = () => {
                 </Box>
               </CardContent>
             </Card>
-            <div style={{ marginTop: "50px" }}>
+            {/* <div style={{ marginTop: "50px" }}>
               <Card style={{ width: "100%", height: "400px" }}>
                 <CardContent></CardContent>
               </Card>
-            </div>
+            </div> */}
           </Grid>
 
           <Grid item xs={12} sm={6} md={9}>
@@ -486,94 +533,14 @@ const BirdPageComponent: React.FC = () => {
                   <CircularIndeterminate></CircularIndeterminate>
                 </div>
               ) : (
-                birdsList.map((bird) => (
+                filtData &&
+                filtData.map((bird) => (
                   <Grid item xs={12} sm={6} md={4} key={bird._id}>
-                    <Card className="bird-page-component--card-bird-list">
-                      <CardMedia
-                        src={
-                          bird.images
-                            ? bird.images[0]
-                            : "https://agridoctor.vn/sites/default/files/giong-chim-chao-mao-2.jpg"
-                        }
-                        component="img"
-                        height="194"
-                        alt={bird.birdName}
-                      />
-
-                      <CardContent style={{ height: "50px" }}>
-                        <Typography
-                          variant="h6"
-                          style={{
-                            display: "inline",
-                            fontSize: "20px",
-                            fontWeight: "bold",
-                          }}
-                          gutterBottom
-                        >
-                          {bird.birdName ? bird.birdName : "Chim"}
-                        </Typography>
-                        <div
-                          style={{
-                            display: "inline-block",
-                            width: "fit-content",
-                            textAlign: "center",
-                            backgroundColor: "black",
-                            marginLeft: "10px",
-                          }}
-                        >
-                          <Typography
-                            variant="h5"
-                            style={{
-                              display: "inline",
-                              fontSize: "15px",
-                              color: "white",
-                              padding: "5px",
-                            }}
-                          >
-                            ${bird.price ? bird.price : 100000}
-                          </Typography>
-                        </div>
-                      </CardContent>
-
-                      <CardContent
-                        style={{ flex: "1 1 auto", marginTop: "10px" }}
-                      >
-                        <Typography variant="body2" color="textSecondary">
-                          Type: {bird.typeID.nameType}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary">
-                          Age: {bird.age}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary">
-                          Gender: {bird.gender ? "Male" : "Female"}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary">
-                          Description:{" "}
-                          {bird.description && bird.description.length > 15
-                            ? `${bird.description.slice(0, 15)}...`
-                            : bird.description}
-                        </Typography>
-                      </CardContent>
-
-                      <CardActions style={{ flex: "1 1 auto" }}>
-                        <Button
-                          variant="contained"
-                          size="small"
-                          color="primary"
-                          onClick={() => handleAddToCart(bird)}
-                        >
-                          Add to Cart
-                        </Button>
-                        <Button
-                          variant="contained"
-                          size="small"
-                          color="secondary"
-                          onClick={() => handleDetail(bird._id)}
-                        >
-                          Detail
-                        </Button>
-                      </CardActions>
-                    </Card>
+                    <BirdItem
+                      bird={bird}
+                      handleAddToCart={handleAddToCart}
+                      handleDetail={handleDetail}
+                    />
                   </Grid>
                 ))
               )}

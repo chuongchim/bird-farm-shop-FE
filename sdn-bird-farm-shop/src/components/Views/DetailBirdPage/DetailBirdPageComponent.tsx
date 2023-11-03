@@ -125,7 +125,7 @@ const DetailBirdPageComponent: React.FC<DetailBirdSelectProps> = ({
       <HeaderComponent></HeaderComponent>
       <Container
         className="detail-bird-page-component-containter"
-        sx={{ marginTop: "250px" }}
+        sx={{ marginTop: "150px" }}
       >
         <Grid
           className="detail-bird-page-component-detail"
@@ -181,7 +181,7 @@ const DetailBirdPageComponent: React.FC<DetailBirdSelectProps> = ({
                     <Card id="bird-card">
                       <div className="bird-info">
                         <h1>{bird.birdName}</h1>
-                        <h2>{bird.price} VNĐ</h2>
+                        <h2>${bird.price}</h2>
                         <hr />
                         <h4>Details</h4>
                         <Grid container>
@@ -221,11 +221,15 @@ const DetailBirdPageComponent: React.FC<DetailBirdSelectProps> = ({
                         <div>
                           <h4>Description</h4>
 
-                          <p>
-                            Believed to be female. Loved pet but international
-                            move to a country that won’t allow her means she
-                            needs to find a new home. Comes with cage and toys{" "}
-                          </p>
+                          {bird.description ? (
+                            <p>{bird.description}</p>
+                          ) : (
+                            <p>
+                              Believed to be female. Loved pet but international
+                              move to a country that won’t allow her means she
+                              needs to find a new home. Comes with cage and toys{" "}
+                            </p>
+                          )}
                         </div>
                       </div>
                       <div id="addToCart">Add to cart</div>
