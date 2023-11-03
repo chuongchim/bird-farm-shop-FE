@@ -5,7 +5,7 @@ import './OrderForm.css';
 
 const OrderForm = () => {
   const [order, setOrder] = useState({
-    CustomerID: null,
+    CustomerID: '',
     customerPhone: '',
     customerName: '',
     customerEmail: '',

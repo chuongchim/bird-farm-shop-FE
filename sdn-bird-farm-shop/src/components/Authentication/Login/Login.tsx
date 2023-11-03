@@ -27,6 +27,7 @@ import './Login.css'
 import { ButtonGroup, IconButton, InputAdornment } from '@mui/material';
 import { Email, Height, Visibility, VisibilityOff } from '@mui/icons-material';
 import { jwtDecode } from "jwt-decode";
+// import { toast } from 'react-toastify';
 
 
 
@@ -139,17 +140,46 @@ export default function SignIn() {
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const body = formData
-    console.log(body);
-    console.log(baseUrl + 'auth' + '/login');
+    console.log(JSON.stringify(body));
+    console.log(baseUrl + 'v1/auth' + '/login');
 
-    const obj = apiService.postData('auth' + '/login', body)
-    obj.then((res) => {
+    // const obj = apiService.postData('auth' + '/login', body)
+    // obj.then((res) => {
+    //   console.log(res);
+    //   localStorage.setItem("accessToken", res.access_token)
+    //   const decoded = jwtDecode(res.access_token);
+
+    //   console.log(decoded);
+    // window.location.href = '/'
+    // })
+    fetch("http://localhost:5000/v1/auth/login", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": '*',
+        "Accept": "/",
+        "X-Requested-With": "XMLHttpRequest",
+        "Cache-Control": "no-cache"
+      },
+      body: JSON.stringify(body)
+    }).then((responseStatus) => {
+      console.log(responseStatus);
+      if (responseStatus.status === 200) {
+        // toast.success('Authentication success!')
+        return responseStatus.json();
+
+      }
+    }).then((res: any) => {
       console.log(res);
-      localStorage.setItem("accessToken", res.access_token)
-      const decoded = jwtDecode(res.access_token);
-
+      localStorage.setItem("token", res.accessToken)
+      localStorage.setItem("isLogined", "isLogined")
+      
+      const decoded = jwtDecode(res.accessToken);
+      localStorage.setItem("decode", JSON.stringify(decoded))
       console.log(decoded);
-      // window.location.href = '/'
+      window.location.href = '/'
+    }).catch(error => {
+      // toast.error('Authentication faild!')
     })
   };
 

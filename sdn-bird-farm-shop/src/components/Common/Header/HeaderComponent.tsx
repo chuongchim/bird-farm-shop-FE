@@ -68,6 +68,8 @@ export default function HeaderComponent() {
     setAnchorElUser(event.currentTarget);
   };
 
+  const [isLogigned, setIsLogined] = React.useState<string | null>();
+
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -109,6 +111,21 @@ export default function HeaderComponent() {
     }
 
     setState({ ...state, [anchor]: open });
+  };
+  React.useEffect(() => {
+    const logined = localStorage.getItem("isLogined");
+    setIsLogined(logined);
+  }, []);
+
+  const hanldeLogout = () => {
+    localStorage.setItem("token", "");
+    localStorage.setItem("isLogined", "");
+    localStorage.setItem("decode", "");
+    window.location.href = "/auth/login";
+  };
+
+  const handleLogin = () => {
+    window.location.href = "/auth/login";
   };
 
   const list = (anchor: Anchor) => (

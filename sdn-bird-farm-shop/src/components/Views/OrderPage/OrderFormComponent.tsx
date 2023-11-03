@@ -23,7 +23,6 @@ import EditIcon from '@mui/icons-material/Edit';
 
 interface OrderFormProps {
   listProduct: any[];
-  voucherList: any[];
 }
 
 interface SelectedInformation {
@@ -44,7 +43,7 @@ const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 
 
 
-const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct, voucherList }) => {
+const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct }) => {
 
   const listProducts = sessionStorage.getItem("listProduct");
   const parsedListProducts = listProducts ? JSON.parse(listProducts) : [];
@@ -54,14 +53,13 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct, voucherList
   const parsedListInfo = listInfo ? JSON.parse(listInfo) : []
 
   const [formData, setFormData] = useState({
-    customerID: "5",
+    customerID: '',
     customerPhone: '',
     customerName: '',
     customerEmail: '',
     customerAddress: '',
     description: '',
     listProduct: parsedListProducts as string[],
-    voucherList: parsedListVouchers as string[],
   });
   const [provinces, setProvinces] = useState<Object[]>();
   const [selectedProvince, setSelectedProvince] = useState('');
@@ -81,6 +79,10 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct, voucherList
   const [selectedInformation, setSelectedInformation] = useState<SelectedInformation>();
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
+  const [decodeUser, setDecodeUser] = useState({
+    id: '',
+    role: ''
+  });
 
 
 
@@ -111,6 +113,7 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct, voucherList
       customerEmail: "",
       customerAddress: "",
       description: "",
+      customerID: decodeUser.id
     });
     setDialogOpen(true);
     setEditDialogOpen(false)
@@ -152,14 +155,26 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct, voucherList
 
 
   useEffect(() => {
-
     fetchProvinces();
     const listInfo = localStorage.getItem("informationList");
-    const parsedListInfo = listInfo ? JSON.parse(listInfo) : []
+    const parsedListInfo = listInfo ? JSON.parse(listInfo) : [];
     console.log(parsedListInfo);
     setInformationList(parsedListInfo);
 
-  }, []);
+    const decodeObj = localStorage.getItem("decode"); // Don't parse it yet
+
+    if (decodeObj) {
+        const decodedValue = JSON.parse(decodeObj);
+        setDecodeUser(decodedValue)
+        console.log("decodedValue: ", decodedValue.id);
+        setFormData({
+          ...formData,
+          customerID: decodedValue.id,
+          
+        });        
+    }
+}, []);
+
 
 
   const fetchProvinces = () => {
@@ -232,36 +247,36 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct, voucherList
   };
 
   const hanldeSubmitOrder = () => {
-    APISERVICE.postData('order/createOrder', formData)
-      .then((data) => {
-        if (data.message === 'success') {
+    // APISERVICE.postData('order/createOrder', formData)
+    //   .then((data) => {
+    //     if (data.message === 'success') {
 
-          setOrderResponse(data)
-          console.log("data", JSON.stringify(data));
-          setReturnUrl(data.data.returnUrl);
-          console.log("checkoutUrl: ", data.data.checkoutUrl, ', ' + data.data.returnUrl);
-          Swal.fire(
-            'Ordered',
-            'Please check your payment',
-            'success'
-          );
-          setTimeout(() => {
-            window.open(data.data.checkoutUrl, '_blank');
-          }, 500)
-        } else {
-          Swal.fire(
-            'Order error',
-            'Product off stock',
-            'error'
-          );
+    //       setOrderResponse(data)
+    //       console.log("data", JSON.stringify(data));
+    //       setReturnUrl(data.data.returnUrl);
+    //       console.log("checkoutUrl: ", data.data.checkoutUrl, ', ' + data.data.returnUrl);
+    //       Swal.fire(
+    //         'Ordered',
+    //         'Please check your payment',
+    //         'success'
+    //       );
+    //       setTimeout(() => {
+    //         window.open(data.data.checkoutUrl, '_blank');
+    //       }, 500)
+    //     } else {
+    //       Swal.fire(
+    //         'Order error',
+    //         'Product off stock',
+    //         'error'
+    //       );
 
-        }
+    //     }
 
 
-      })
-      .catch(errors => {
-        console.log(errors);
-    })
+    //   })
+    //   .catch(errors => {
+    //     console.log(errors);
+    // })
     console.log("object: ", JSON.stringify(formData));
 
   }

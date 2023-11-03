@@ -93,7 +93,7 @@ const BirdPageComponent: React.FC = () => {
     const updatedCart = [...cart, bird];
     setCart(updatedCart);
 
-    // Save the updated cart to localStorage
+    console.log(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
 
     Swal.fire(
