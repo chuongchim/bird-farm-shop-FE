@@ -69,7 +69,7 @@ const BirdSelectionPopup: React.FC<BirdSelectionPopupProps> = ({
                             Gender: {bird.gender ? "Male" : "Female"}
                           </Typography>
                           <Typography variant="body2">
-                            Type: {bird.typeOfBirdID}
+                            {/* Type: {bird.typeID.nameType} */}
                           </Typography>
                           <Typography variant="body2">
                             Price: {bird.price}
