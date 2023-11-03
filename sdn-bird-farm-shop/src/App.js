@@ -21,6 +21,7 @@ import ManageTypeOfBirdList from './components/AdminManageTypeOfBird/adminmanage
 import UserProfileComponent from './components/Views/UserProfile/UserProfileComponent';
 import { jwtDecode } from 'jwt-decode';
 import ErrorPageComponent from './components/Common/ErrorPage/ErrorPageComponent';
+import OrderDetailComponent from './components/Views/OrderPage/OrderdetailComponent';
 
 const tokenIsValid = (token) => {
   // Implement your token validation logic here
@@ -72,7 +73,7 @@ function App() {
           <Route path='/auth/verify' element={<VerifyGmailForm></VerifyGmailForm>}></Route>
           <Route path='/' element={<HomeComponent></HomeComponent>}></Route>
           <Route path='/order-page' element = {<PrivateRoute element={<OrderPageComponent ></OrderPageComponent>} requiredRole="CUSTOMER"/> } />
-          <Route path='/order/order-detail'></Route>
+          <Route path="/order/:_id" element = {<OrderDetailComponent></OrderDetailComponent>} />
           <Route path='/matching-bird' element={<MatchingBirdComponent></MatchingBirdComponent>}></Route>
           <Route path='/bird' element={<BirdPageComponent></BirdPageComponent>}></Route>
           <Route path="/bird/detail/:_id" element={<DetailBirdPageComponent></DetailBirdPageComponent>}></Route>

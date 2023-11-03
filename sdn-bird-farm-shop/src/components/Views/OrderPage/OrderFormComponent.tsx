@@ -30,7 +30,7 @@ interface SelectedInformation {
   customerPhone: string;
   customerEmail: string;
   customerAddress: string;
-  description: string;
+  note: string;
 }
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
@@ -51,15 +51,25 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct }) => {
   const parsedListVouchers = listVouchers ? JSON.parse(listVouchers) : [];
   const listInfo = localStorage.getItem("informationList");
   const parsedListInfo = listInfo ? JSON.parse(listInfo) : []
+  const decodeObj = localStorage.getItem("decode"); // Don't parse it yet
+  const decodedValue = decodeObj ? JSON.parse(decodeObj) : '';
+  const totalPrice = localStorage.getItem("totalPrice");
+  const parsedTotalPrice = totalPrice ? parseInt(totalPrice) : 0
+  const now = new Date();
+  const formattedDateTime = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+
 
   const [formData, setFormData] = useState({
-    customerID: '',
+    customerID: decodedValue.id,
     customerPhone: '',
     customerName: '',
     customerEmail: '',
     customerAddress: '',
-    description: '',
-    listProduct: parsedListProducts as string[],
+    note: '',
+    productList: parsedListProducts as string[],
+    amount: parsedTotalPrice,
+    date: formattedDateTime,
+    orderStatus: 'Pending'
   });
   const [provinces, setProvinces] = useState<Object[]>();
   const [selectedProvince, setSelectedProvince] = useState('');
@@ -84,9 +94,6 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct }) => {
     role: ''
   });
 
-
-
-
   const handleOpenDialog = () => {
     setDialogOpen(true);
   };
@@ -94,10 +101,6 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct }) => {
   const handleOpenDialogEdit = () => {
     setEditDialogOpen(true);
   };
-
-
-
-
 
 
   const handleAddInformation = () => {
@@ -112,8 +115,7 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct }) => {
       customerPhone: "",
       customerEmail: "",
       customerAddress: "",
-      description: "",
-      customerID: decodeUser.id
+      note: "",
     });
     setDialogOpen(true);
     setEditDialogOpen(false)
@@ -128,7 +130,7 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct }) => {
       customerPhone: information.customerPhone,
       customerEmail: information.customerEmail,
       customerAddress: information.customerAddress,
-      description: information.description,
+      note: information.note,
     });
   };
 
@@ -163,17 +165,18 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct }) => {
 
     const decodeObj = localStorage.getItem("decode"); // Don't parse it yet
 
-    if (decodeObj) {
-        const decodedValue = JSON.parse(decodeObj);
-        setDecodeUser(decodedValue)
-        console.log("decodedValue: ", decodedValue.id);
-        setFormData({
-          ...formData,
-          customerID: decodedValue.id,
-          
-        });        
-    }
-}, []);
+    // if (decodeObj) {
+    //   const decodedValue = JSON.parse(decodeObj);
+    //   setDecodeUser(decodedValue)
+    //   console.log("decodedValue: ", decodedValue.id);
+    //   setFormData((prevFormData) => ({
+    //     ...prevFormData,
+    //     customerID: decodedValue.id,
+    //   }));
+    // }
+    console.log(formData);
+  }, []);
+
 
 
 
@@ -247,6 +250,41 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct }) => {
   };
 
   const hanldeSubmitOrder = () => {
+
+    fetch("http://localhost:5000/v1/order", {
+      method: "POST",
+      headers: {
+        "token": `Bearer ${localStorage.getItem("token")}`,
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": '*',
+        "Accept": "/",
+        "X-Requested-With": "XMLHttpRequest",
+        "Cache-Control": "no-cache"
+      },
+      body: JSON.stringify(formData)
+    }).then((responseStatus) => {
+      console.log(responseStatus);
+      if (responseStatus.status === 200) {
+
+        return responseStatus.json();
+
+      }
+    }).then((res: any) => {
+      console.log(res);
+      Swal.fire(
+        'Order Success!',
+        'Your product has been Order !!! Please pay your order',
+        'success'
+
+      );
+      setTimeout(() => {
+
+        window.location.href = '/order/' + `${res._id}`  
+      }, 500)
+
+    }).catch(error => {
+      // toast.error('Authentication faild!')
+    })
     // APISERVICE.postData('order/createOrder', formData)
     //   .then((data) => {
     //     if (data.message === 'success') {
@@ -327,17 +365,17 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct }) => {
 
 
                   {selectedInformation ? (
-                    <div style={{position:'relative'}}>
+                    <div style={{ position: 'relative' }}>
 
 
-                     <Typography>Customer Information: </Typography>
+                      <Typography>Customer Information: </Typography>
                       <div>Name: {selectedInformation.customerName}</div>
                       <div>Phone: {selectedInformation.customerPhone}</div>
                       <div>Email: {selectedInformation.customerEmail}</div>
                       <div>Address: {selectedInformation.customerAddress}</div>
-                      <div>Description: {selectedInformation.description}</div>
+                      <div>note: {selectedInformation.note}</div>
 
-                      <div style={{top: 0, left: '90%'}} className='locationIcon'>
+                      <div style={{ top: 0, left: '90%' }} className='locationIcon'>
                         <IconButton onClick={handleOpenDialog}>
                           <AddCircleIcon />
                         </IconButton>
@@ -367,9 +405,9 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct }) => {
                   )}
                   <Typography>Bill Information: </Typography>
                   <div>
-                    
+
                   </div>
-                  <Button style={{backgroundColor: '#E9034F'}} onClick={hanldeSubmitOrder} type="submit" variant="contained" className="order-form-button">
+                  <Button style={{ backgroundColor: '#E9034F' }} onClick={hanldeSubmitOrder} type="submit" variant="contained" className="order-form-button">
                     Order products
                   </Button>
                 </CardContent>
@@ -486,8 +524,8 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct }) => {
                       maxRows={8}
                       aria-label="Note"
                       placeholder="Note"
-                      name="description"
-                      value={formData.description}
+                      name="note"
+                      value={formData.note}
                       onChange={handleChange}
                       className="order-form-textarea"
                       style={{ marginBottom: "20px" }} // Margin bottom
@@ -520,7 +558,7 @@ const OrderFormComponent: React.FC<OrderFormProps> = ({ listProduct }) => {
                           <div>Phone: {information.customerPhone}</div>
                           <div>Email: {information.customerEmail}</div>
                           <div>Address: {information.customerAddress}</div>
-                          <div>Description: {information.description}</div>
+                          <div>note: {information.note}</div>
                           <Button
                             onClick={() => handleDeleteInformation(index)}
                             style={{
