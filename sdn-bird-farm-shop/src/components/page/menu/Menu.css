@@ -1,0 +1,28 @@
+.navigation_bar{
+    background-color: white !important;
+}
+
+.navigation_bar h6{
+    color: red !important;
+}
+
+.list_menu_choice:hover{
+    background-color: #F8F0E5 !important;
+    color: #C77E23 !important;
+    border-radius: 15%;
+}
+
+.active .menuicon{
+    background-color: #F8F0E5;
+    color: #C77E23 !important;
+    border-radius: 15%;
+
+}
+
+.active .dashboardicon{
+    color: #C77E23 !important;
+}
+
+.MuiDrawer-paper{
+    border-right: hidden !important;
+}

@@ -1,0 +1,127 @@
+:root {
+  --black-color: black;
+  --main-bg-color: #e9034f;
+  --white-color: #fff;
+  --button-hover-color: #fac74f;
+}
+
+/* ... */
+
+.button-with-border {
+  position: relative;
+  font-weight: bold;
+}
+
+.button-with-border::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  background-color: var(--black-color);
+  transition: width 0.3s;
+  width: 0;
+}
+
+.button-with-border:hover::after {
+  width: 100%;
+}
+
+.header-component {
+  width: 100%;
+}
+
+.header-component--banner {
+  width: 100%;
+  background-color: var(--main-bg-color);
+}
+
+.header-component--banner h4 {
+  font-weight: bold;
+}
+
+.header-component--banner h6 {
+  margin-left: 50px;
+  font-weight: bold;
+}
+
+.header-component--banner span {
+  margin-left: 60px;
+  font-weight: 100;
+}
+
+.header-component--banner button {
+  width: 120px;
+  height: 45px;
+  background-color: var(--white-color);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: var(--black-color);
+  margin-left: 60px;
+  font-weight: bold;
+}
+
+.header-component--banner button:hover {
+  background-color: var(--button-hover-color);
+  color: var(--white-color);
+}
+
+.header-component--infor {
+  background-color: var(--white-color);
+  border-bottom: 0.5px solid var(--button-hover-color);
+  height: 40px;
+}
+
+.header-component--infor__icon {
+  color: var(--black-color);
+  width: 20px;
+  height: 20px;
+  margin-left: 7px;
+  font-size: 100px;
+}
+
+.header-component--infor__span {
+  color: var(--black-color);
+
+  padding-left: 790px;
+  padding-bottom: 20px;
+  font-size: 100px;
+}
+.logo {
+  display: flex;
+  margin-left: 80px;
+  width: 100px;
+}
+/* HeaderComponent.css */
+/* ... (Previous CSS rules) ... */
+
+@media (max-width: 768px) {
+  /* Responsive styles for screens with a max-width of 768px (e.g., mobile devices) */
+  .header-component--banner {
+    text-align: center;
+  }
+
+  .header-component--banner h4,
+  .header-component--banner h6,
+  .header-component--banner span {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .header-component--banner button {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  .header-component--infor__span {
+    padding-left: 0;
+    text-align: center;
+  }
+  .logo {
+    display: none;
+  }
+}
+
+/* ... (Remaining CSS rules) ... */
