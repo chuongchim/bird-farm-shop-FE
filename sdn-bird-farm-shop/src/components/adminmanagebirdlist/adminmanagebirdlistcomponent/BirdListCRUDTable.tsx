@@ -27,11 +27,14 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 600,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  paddingTop: "40px",
+  paddingLeft: "40px",
+  paddingRight: "10px",
+  paddingBottom: "30px",
 };
 
 interface Bird {
@@ -80,7 +83,7 @@ const BirdListCRUDTable: React.FC = () => {
   };
 
   useEffect(() => {
-    APISERVICE.getData(basePonitUrl.birds + "/getAllBird")
+    APISERVICE.getData(basePonitUrl.birds)
       .then((data: BirdInterface[]) => {
         setData(data);
         console.log("asddsf: ", data);
@@ -121,18 +124,28 @@ const BirdListCRUDTable: React.FC = () => {
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, I want to delete it!",
       });
+
       if (result.isConfirmed) {
         const numericId = parseInt(id, 10); // Convert the id to a number
         if (!isNaN(numericId)) {
-          await deleteUser(numericId);
-          Swal.fire(
-            "Deleted Bird Success!",
-            "Your bird has been deleted!!!",
-            "success"
-          );
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
+          APISERVICE.deleteData(basePonitUrl.birds, id).then((res: any) => {
+            if (res) {
+              Swal.fire(
+                "Delete  Bird Success!",
+                "Bird has been deleted!",
+                "success"
+              );
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+              });
+            }
+          });
         } else {
           Swal.fire(
             "Invalid ID",
@@ -176,17 +189,18 @@ const BirdListCRUDTable: React.FC = () => {
   };
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <Typography
-        gutterBottom
-        variant="h5"
-        component="div"
-        sx={{ padding: "20px" }}
-      >
+    <div>
+      <Typography gutterBottom variant="h5" component="div" sx={{}}>
         Bird List
       </Typography>
       <Divider />
-      <div style={{ display: "flex" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "10px",
+        }}
+      >
         <Autocomplete
           onChange={(e, v) => {
             filtData(v as BirdInterface);
@@ -198,8 +212,17 @@ const BirdListCRUDTable: React.FC = () => {
           getOptionLabel={(data) => data.birdName || ""}
           renderInput={(params) => <TextField {...params} label="Search" />}
         />
-        <Button onClick={handleOpen} style={{ marginLeft: "60%" }}>
-          Add <AddCircleIcon />
+        <Button
+          color="primary"
+          variant="contained"
+          sx={{
+            paddingLeft: "25px",
+            paddingRight: "25px",
+          }}
+          onClick={handleOpen}
+        >
+          <AddCircleIcon />
+          &nbsp;&nbsp; Add
         </Button>
         <Modal
           open={open}
@@ -229,7 +252,7 @@ const BirdListCRUDTable: React.FC = () => {
               <TableCell align="left" style={{ minWidth: "100px" }}>
                 _id
               </TableCell>
-              <TableCell align="left" style={{ minWidth: "100px" }}>
+              <TableCell align="left" style={{ minWidth: "150px" }}>
                 birdName
               </TableCell>
               <TableCell align="left" style={{ minWidth: "100px" }}>
@@ -330,7 +353,7 @@ const BirdListCRUDTable: React.FC = () => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </Paper>
+    </div>
   );
 };
 

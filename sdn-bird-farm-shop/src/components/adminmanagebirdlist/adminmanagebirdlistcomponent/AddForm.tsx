@@ -36,19 +36,22 @@ const APISERVICE = new ApiService();
 // PURPLE,
 // BROWN,
 // YELLOW
-
+const minAge = 1;
+const maxAge = 15;
+const minPrice = 500;
+const maxPrice = 10000;
 interface AddFormProps {
   closeCard: () => void;
 }
 
 const AddForm: React.FC<AddFormProps> = ({ closeCard }) => {
   const [formData, setFormData] = useState({
-    productName: "",
+    birdName: "",
     age: 0,
-    typeOfBirdID: "B001",
+    typeID: "B001",
     images: [] as string[],
     gender: true, // Default gender value (you can change this)
-    Status: true,
+    status: true,
     description: "",
     fertility: true,
     feedback: "",
@@ -64,8 +67,8 @@ const AddForm: React.FC<AddFormProps> = ({ closeCard }) => {
   const [uploadedImageUrls, setUploadedImageUrls] = useState<string>();
   const [imgArray, setImgArray] = useState<string[]>([]);
   const [dataTOB, setDataTOB] = useState<TypeOfBirdInterface[]>([]);
-  const [dataHealthCare, setDataHealthCare] = useState<[]>([]);
-
+  // const [dataHealthCare, setDataHealthCare] = useState<[]>([]);
+  // const [birdsList, setBirdsList] = useState<BirdInterface[]>([]);
   const handleImagesUpload = (imageUrls: string) => {
     imgArray.push(imageUrls);
     setImgArray(imgArray);
@@ -79,6 +82,10 @@ const AddForm: React.FC<AddFormProps> = ({ closeCard }) => {
     }
   };
 
+  const handleRemoveImage = (index: number) => () => {
+    const imgArr = imgArray.slice(0, index).concat(imgArray.slice(index + 1));
+    setImgArray(imgArr);
+  };
   const handleFormChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -90,13 +97,35 @@ const AddForm: React.FC<AddFormProps> = ({ closeCard }) => {
   };
 
   const handleFormTypeOfBirdChange = (event: SelectChangeEvent<unknown>) => {
-    const { name, value } = event.target;
+    console.log("TOB", dataTOB);
+    const value = event.target.value as string;
+    console.log("value type of bird", value);
     setFormData({
       ...formData,
-      [name]: value,
+      typeID: value,
+    });
+    console.log("formData", formData);
+  };
+  const handleAge = (event: ChangeEvent<HTMLInputElement>) => {
+    let value = parseInt(event.target.value, 10);
+    let newValue = value;
+    if (value > maxAge) newValue = maxAge;
+    if (value < minAge) newValue = minAge;
+    setFormData({
+      ...formData,
+      age: newValue,
     });
   };
-
+  const handlePrice = (event: ChangeEvent<HTMLInputElement>) => {
+    var value = parseInt(event.target.value, 10);
+    let newValue = value;
+    if (value > maxPrice) newValue = maxPrice;
+    if (value < minPrice) newValue = minPrice;
+    setFormData({
+      ...formData,
+      price: newValue,
+    });
+  };
   const handleFormHealthCare = (event: SelectChangeEvent<unknown>) => {
     const { name, value } = event.target;
     setFormData({
@@ -107,36 +136,43 @@ const AddForm: React.FC<AddFormProps> = ({ closeCard }) => {
 
   const handleSubmit = () => {
     console.log("Form Data:", JSON.stringify(formData));
-    APISERVICE.postData(basePonitUrl.birds + "/addBird", formData).then(
-      (res: any) => {
-        console.log("âsasasas ", res);
-        if (res.message === "Success") {
-          sessionStorage.setItem("obj", JSON.stringify(formData));
-          Swal.fire(
-            "Add  Bird Success!",
-            "Your Bird has been updated!",
-            "success"
-          );
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
-        }
+    APISERVICE.postData(basePonitUrl.birds, formData).then((res: any) => {
+      console.log("âsasasas ", res);
+      if (res) {
+        sessionStorage.setItem("obj", JSON.stringify(formData));
+        Swal.fire(
+          "Add  Bird Success!",
+          "Your Bird has been updated!",
+          "success"
+        );
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
       }
-    );
+    });
   };
 
   useEffect(() => {
-    APISERVICE.getData("typeOfBird/getAllTypeOfBird")
+    APISERVICE.getData("/v1/typeofbird/")
       .then((data: TypeOfBirdInterface[]) => {
         setDataTOB(data);
       })
       .catch((error) => console.error("Error fetching data:", error));
 
-    APISERVICE.getData("admin/getAllHealthcares")
-      .then((data) => {
-        setDataHealthCare(data);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
+    // APISERVICE.getData("/v1/bird/").then((data: BirdInterface[]) => {
+    //   setBirdsList(data);
+    // });
+    // APISERVICE.getData("/v1/healthcareproffesional")
+    //   .then((data) => {
+    //     setDataHealthCare(data);
+    //   })
+    //   .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
   return (
@@ -144,7 +180,7 @@ const AddForm: React.FC<AddFormProps> = ({ closeCard }) => {
       className="add-from-bird-list"
       style={{ height: "500px", overflowY: "auto" }}
     >
-      <div>
+      <div style={{ paddingRight: "30px" }}>
         <Typography variant="h5" align="center">
           Add Bird
         </Typography>
@@ -163,8 +199,8 @@ const AddForm: React.FC<AddFormProps> = ({ closeCard }) => {
               variant="outlined"
               size="small"
               sx={{ minWidth: "100%" }}
-              name="productName"
-              value={formData.productName}
+              name="birdName"
+              value={formData.birdName}
               onChange={handleFormChange}
             />
           </Grid>
@@ -173,14 +209,13 @@ const AddForm: React.FC<AddFormProps> = ({ closeCard }) => {
               id="outline-basic"
               label="Age"
               type="number"
-              minRows={0}
-              maxRows={15}
+              InputProps={{ inputProps: { min: minAge, max: maxAge } }}
               variant="outlined"
               size="small"
               sx={{ minWidth: "100%" }}
               name="age"
               value={formData.age}
-              onChange={handleFormChange}
+              onChange={handleAge}
             />
           </Grid>
           <Grid item xs={12}>
@@ -210,12 +245,12 @@ const AddForm: React.FC<AddFormProps> = ({ closeCard }) => {
               variant="outlined"
               size="small"
               sx={{ minWidth: "100%" }}
-              name="typeOfBirdID"
-              value={formData.typeOfBirdID}
+              name="typeID"
+              value={formData.typeID}
               onChange={handleFormTypeOfBirdChange}
             >
               {dataTOB.map((item) => (
-                <MenuItem key={item.typeID} value={item.typeID}>
+                <MenuItem key={item._id} value={item._id}>
                   {item.nameType}
                 </MenuItem>
               ))}
@@ -230,10 +265,9 @@ const AddForm: React.FC<AddFormProps> = ({ closeCard }) => {
               size="small"
               sx={{ minWidth: "100%" }}
               name="price"
-              minRows={100000}
-              maxRows={25000000}
+              InputProps={{ inputProps: { min: minPrice, max: maxPrice } }}
               value={formData.price}
-              onChange={handleFormChange}
+              onChange={handlePrice}
             />
           </Grid>
           <Grid item xs={12}>
@@ -256,21 +290,38 @@ const AddForm: React.FC<AddFormProps> = ({ closeCard }) => {
                   <Typography>Uploaded Image URLs:</Typography>
                 </Grid>
                 {imgArray.map((url, index) => (
-                  <img
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      float: "left",
-                      marginRight: "5px",
+                  <Box
+                    sx={{
+                      display: "inline-flex",
+                      width: "150px",
                     }}
-                    src={url}
-                    alt={`Uploaded Image ${index}`}
-                  />
+                  >
+                    <img
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        float: "left",
+                      }}
+                      src={url}
+                      alt={`Uploaded Image ${index}`}
+                    />
+                    <div>
+                      <span
+                        style={{
+                          width: "30px",
+                          fontSize: "20px",
+                        }}
+                        onClick={handleRemoveImage(index)}
+                      >
+                        x
+                      </span>
+                    </div>
+                  </Box>
                 ))}
               </div>
             )}
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Select
               id="healthcareProfessionalID"
               label="Healthcare Professional"
@@ -287,7 +338,7 @@ const AddForm: React.FC<AddFormProps> = ({ closeCard }) => {
                 </MenuItem>
               ))}
             </Select>
-          </Grid>
+          </Grid> */}
         </Grid>
         <div
           onClick={closeCard}

@@ -37,7 +37,7 @@ const MatchingBirdComponent: React.FC = () => {
     birdName: "",
     age: 1,
     typeID: {
-      typeID: "",
+      _id: "",
       nameType: "",
       quantity: 0,
     },
@@ -59,7 +59,7 @@ const MatchingBirdComponent: React.FC = () => {
     birdName: "",
     age: 1,
     typeID: {
-      typeID: "",
+      _id: "",
       nameType: "",
       quantity: 0,
     },

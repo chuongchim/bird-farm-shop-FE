@@ -73,11 +73,9 @@ const TypeOfBirdListCRUDTable: React.FC = () => {
   };
 
   useEffect(() => {
-    APISERVICE.getData("typeOfBird/getAllTypeOfBird")
+    APISERVICE.getData("/v1/typeofbird/")
       .then((data: TypeOfBirdInterface[]) => {
         setData(data);
-        console.log("asddsf: ", data);
-        setRows(data);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
@@ -141,7 +139,7 @@ const TypeOfBirdListCRUDTable: React.FC = () => {
 
   const editData = (typeOfBird: TypeOfBirdInterface) => {
     const dataTypeOfBird: TypeOfBirdInterface = {
-      typeID: typeOfBird.typeID,
+      _id: typeOfBird._id,
       nameType: typeOfBird.nameType,
       quantity: 0,
     };
@@ -150,13 +148,8 @@ const TypeOfBirdListCRUDTable: React.FC = () => {
   };
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <Typography
-        gutterBottom
-        variant="h5"
-        component="div"
-        sx={{ padding: "20px" }}
-      >
+    <div>
+      <Typography gutterBottom variant="h5" component="div">
         Bird List
       </Typography>
       <Divider />
@@ -211,9 +204,6 @@ const TypeOfBirdListCRUDTable: React.FC = () => {
               </TableCell>
 
               <TableCell align="left" style={{ minWidth: "100px" }}>
-                status
-              </TableCell>
-              <TableCell align="left" style={{ minWidth: "100px" }}>
                 action
               </TableCell>
             </TableRow>
@@ -223,32 +213,15 @@ const TypeOfBirdListCRUDTable: React.FC = () => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={row.typeID}
-                  >
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row._id}>
                     {/* <TableCell align='left'>
                                             {}
                                         </TableCell> */}
-                    <TableCell key={row.typeID} align="left">
-                      {row.typeID}
+                    <TableCell key={row._id} align="left">
+                      {row._id}
                     </TableCell>
                     <TableCell align="left">{row.nameType}</TableCell>
                     <TableCell align="left">{row.quantity}</TableCell>
-
-                    <TableCell align="left">
-                      {row.quantity !== 0 ? (
-                        <Typography style={{ color: "#1B9908" }}>
-                          Stock
-                        </Typography>
-                      ) : (
-                        <Typography style={{ color: "#E63F32" }}>
-                          UnStock
-                        </Typography>
-                      )}
-                    </TableCell>
                     <TableCell align="left">
                       <div style={{ display: "flex" }}>
                         <EditIcon
@@ -257,9 +230,7 @@ const TypeOfBirdListCRUDTable: React.FC = () => {
                         />
                         <DeleteIcon
                           style={{ color: "red", cursor: "pointer" }}
-                          onClick={() =>
-                            confirmDelete(row.typeID, row.nameType)
-                          }
+                          onClick={() => confirmDelete(row._id, row.nameType)}
                         />
                       </div>
                     </TableCell>
@@ -278,7 +249,7 @@ const TypeOfBirdListCRUDTable: React.FC = () => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </Paper>
+    </div>
   );
 };
 

@@ -18,7 +18,7 @@ export interface BirdInterface {
 }
 
 export interface TypeOfBirdInterface {
-  typeID: string;
+  _id: string;
   nameType: string;
   quantity: number;
 }
