@@ -283,18 +283,38 @@ const OrderDetailComponent: React.FC = () => {
       .then(response => response.json())
       .then(response => {
         if (response.message !== "") {
+          
+          setTimeout(() => {
+            if (orderData) {
+              
+              orderData.productList.map((item)=> {
+                changeBirdStatus(item._id)
+              })
+            }
+          }, 1000);
+        }
+      })
+  }
+
+  const changeBirdStatus = (id: string) => {
+    fetch("http://localhost:5000/v1/bird/update/" + `${id}`,
+      {
+        method: "PUT",
+        headers: {
+          // "token": `Bearer ${localStorage.getItem("token")}`,
+          'Content-Type': 'application/json',
+          "Access-Control-Allow-Origin": '*',
+          "Accept": "/",
+          "X-Requested-With": "XMLHttpRequest",
+          "Cache-Control": "no-cache"
+        }
+      })
+      .then(response => response.json())
+      .then(response => {
+        if (response.message !== "") {
           location.reload()
         }
       })
-
-      setTimeout(() => {
-        if (orderData) {
-
-          orderData.productList.map((item)=> {
-            
-          })
-        }
-      }, 1000);
   }
 
   if (!orderData) {
@@ -310,7 +330,7 @@ const OrderDetailComponent: React.FC = () => {
       <HeaderComponent />
 
       {/* Main content container */}
-      <Container maxWidth="md" sx={{ marginTop: '250px' }}>
+      <Container maxWidth="md" sx={{ marginTop: '100px' }}>
         <Typography variant="h4" align="center">
           Order Detail
         </Typography>

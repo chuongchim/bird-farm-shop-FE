@@ -20,6 +20,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MailIcon from "@mui/icons-material/Mail";
+import AddShoppingCartTwoToneIcon from "@mui/icons-material/AddShoppingCartTwoTone";
+import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
+import Diversity3TwoToneIcon from "@mui/icons-material/Diversity3TwoTone";
+import ShowChartTwoToneIcon from "@mui/icons-material/ShowChartTwoTone";
+
 import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
 
@@ -127,23 +132,23 @@ export default function MenuAdmin() {
           >
             <MenuIcon className="icon_menu" />
           </IconButton>
-          {/* <TextField
-                        variant="outlined"
-                        placeholder='Search'
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon />
-                                </InputAdornment>
-                            ),
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <h2>&#xec38;</h2>
-                                </InputAdornment>
-                            )
-                        }}
-                        style={{ width: "25rem", marginLeft: "1%" }}
-                    /> */}
+          <TextField
+            variant="outlined"
+            placeholder="Search"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <h2>&#xec38;</h2>
+                </InputAdornment>
+              ),
+            }}
+            style={{ width: "25rem", marginLeft: "1%" }}
+          />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -202,7 +207,7 @@ export default function MenuAdmin() {
                     justifyContent: "center",
                   }}
                 >
-                  <MailIcon className="dashboardicon" />
+                  <ShowChartTwoToneIcon className="dashboardicon" />
                 </ListItemIcon>
                 <ListItemText
                   primary="DashBoard"
@@ -327,7 +332,7 @@ export default function MenuAdmin() {
                     justifyContent: "center",
                   }}
                 >
-                  <MailIcon className="dashboardicon" />
+                  <Diversity3TwoToneIcon className="dashboardicon" />
                 </ListItemIcon>
                 <ListItemText
                   primary="Employee List"
@@ -369,10 +374,52 @@ export default function MenuAdmin() {
                     justifyContent: "center",
                   }}
                 >
-                  <MailIcon className="dashboardicon" />
+                  <AddShoppingCartTwoToneIcon className="dashboardicon" />
                 </ListItemIcon>
                 <ListItemText
                   primary="Voucher List"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </NavLink>
+
+        <NavLink
+          to="/admin-matching-birds"
+          style={{
+            textDecoration: "none",
+            color: "black",
+            width: "80%",
+            marginLeft: "1rem",
+            marginTop: "-10px",
+          }}
+        >
+          <List>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              className="list_menu_choice"
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+                className="menuicon"
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FavoriteTwoToneIcon className="sdfasdfsad" />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Match Records"
                   sx={{ opacity: open ? 1 : 0 }}
                 />
               </ListItemButton>

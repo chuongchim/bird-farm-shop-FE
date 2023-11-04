@@ -16,6 +16,7 @@ import CartComponent from './components/Views/Cart/CartComponent';
 import ManageBirdList from './components/adminmanagebirdlist/ManageBirdList';
 import ManageEmployee from './components/adminmanageemployee/ManageEmployee';
 import ManageVoucher from './components/adminmanagevoucher/ManageVoucher';
+import ManageMatchingRecord from './components/adminmatchingbirds/ManageMatchingRecord';
 import { AdminDashBoard } from './components/admindashboard/AdminDashboard';
 import ManageTypeOfBirdList from './components/AdminManageTypeOfBird/adminmanagebirdlist/ManageTypeOfBirdList';
 import UserProfileComponent from './components/Views/UserProfile/UserProfileComponent';
@@ -80,6 +81,14 @@ function App() {
           <Route path='/cart' element = {<PrivateRoute element={<CartComponent ></CartComponent>} requiredRole="CUSTOMER"/> }></Route>
 
           {/* ADMIN DASHOBOARD AND MANAGE BIRD EMPLOYEE VOUCHER */}
+          <Route path='/admin-dashboard' element={<AdminDashBoard></AdminDashBoard>}></Route>
+          <Route path='/admin-manage-bird' element={<ManageBirdList></ManageBirdList>}></Route>
+          <Route path='/admin-manage-typeofbird' element={<ManageTypeOfBirdList></ManageTypeOfBirdList>}></Route>
+          <Route path='/admin-manage-employee' element={<ManageEmployee></ManageEmployee>}></Route>
+          <Route path='/admin-manage-voucher' element={<ManageVoucher></ManageVoucher>}></Route>
+          <Route path='/admin-matching-birds' element={<ManageMatchingRecord></ManageMatchingRecord>}></Route>
+
+          <Route path='/user-profile' element={<UserProfileComponent></UserProfileComponent>}></Route>
           <Route
             path='/admin-dashboard'
             element={<PrivateRoute element={<AdminDashBoard />} requiredRole="ADMIN" />}

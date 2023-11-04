@@ -197,7 +197,7 @@ const CartComponent = () => {
     return (
         <div className='cart-component'>
             <HeaderComponent></HeaderComponent>
-            <Container sx={{ marginTop: '250px' }}>
+            <Container sx={{ marginTop: '100' }}>
                 <Grid
                     container
                     justifyContent="center"
@@ -245,7 +245,7 @@ const CartComponent = () => {
                                                     </Grid>
                                                     <Grid item xs={12} sm={4}>
                                                         <Typography variant="subtitle1" >
-                                                            {item.productName}
+                                                            {item.birdName}
                                                         </Typography>
                                                         <Typography variant="subtitle2" color="textSecondary">
                                                             {item.gender ? "Male" : "Female"}

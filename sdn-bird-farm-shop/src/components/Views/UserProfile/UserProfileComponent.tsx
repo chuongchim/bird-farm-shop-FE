@@ -31,6 +31,7 @@ import {
 import HeaderComponent from '../../Common/Header/HeaderComponent';
 import FooterComponent from '../../Common/Footer/FooterComponent';
 import OrderListComponent from './UserOrderListComponent';
+import { useParams } from 'react-router-dom';
 
 interface User {
     _id: string;
@@ -48,7 +49,11 @@ interface User {
     __v: number;
 }
 
-export default function UserProfileComponent() {
+interface UserIdProps {
+    userId: string;
+}
+
+const  UserProfileComponent: React.FC<UserIdProps> = ({ userId }) => {
     const token = localStorage.getItem("token"); // Don't parse it yet
     // const parseToken = token ? JSON.parse(token) : '';
     const decodeObj = localStorage.getItem("decode"); // Don't parse it yet
@@ -56,7 +61,7 @@ export default function UserProfileComponent() {
     const [user, setUser] = React.useState<User>();
 
     useEffect(() => {
-        console.log("http://localhost:5000/v1/user/" + `${decodedValue.id}`);
+        console.log("http://localhost:5000/v1/user/" + userId);
         console.log("Bearer ", `${localStorage.getItem("token")}`);
         fetch("http://localhost:5000/v1/user/" + `${decodedValue.id}`, {
             method: "GET",
@@ -83,7 +88,7 @@ export default function UserProfileComponent() {
     return (
         <div>
             <HeaderComponent></HeaderComponent>
-            <Container sx={{ marginTop: '200px' }} className="py-5">
+            <Container sx={{ marginTop: '100px' }} className="py-5">
                 <Grid >
                     <Grid item>
                         <Breadcrumbs aria-label="breadcrumb">
@@ -122,161 +127,73 @@ export default function UserProfileComponent() {
                         </Card>
 
                         <Card className="mb-4 mb-lg-0">
-                            <CardContent className="p-0">
-                                <List>
-                                    <ListItem>
-                                        <ListItemIcon>
-                                            {/* <Globe color="warning" /> */}
-                                        </ListItemIcon>
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemIcon>
-                                            <GitHub style={{ color: '#333333' }} />
-                                        </ListItemIcon>
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemIcon>
-                                            <Twitter style={{ color: '#55acee' }} />
-                                        </ListItemIcon>
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemIcon>
-                                            <Instagram style={{ color: '#ac2bac' }} />
-                                        </ListItemIcon>
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemIcon>
-                                            <Facebook style={{ color: '#3b5998' }} />
-                                        </ListItemIcon>
-                                    </ListItem>
-                                </List>
-                            </CardContent>
+                            {user && (
+                                <Grid item lg={8}>
+                                    <Card className="mb-4">
+                                        <CardContent>
+                                            <Grid container>
+                                                <Grid item sm={3}>
+                                                    <Typography variant="subtitle1">Full Name</Typography>
+                                                </Grid>
+                                                <Grid item sm={9}>
+                                                    <Typography variant="subtitle2" className="text-muted">
+                                                        {user.firstName + " " + user.lastName}
+                                                    </Typography>
+                                                </Grid>
+                                            </Grid>
+                                            <hr />
+                                            <Grid container>
+                                                <Grid item sm={3}>
+                                                    <Typography variant="subtitle1">Email</Typography>
+                                                </Grid>
+                                                <Grid item sm={9}>
+                                                    <Typography variant="subtitle2" className="text-muted">
+                                                        {user.email}
+                                                    </Typography>
+                                                </Grid>
+                                            </Grid>
+                                            <hr />
+                                            <Grid container>
+                                                <Grid item sm={3}>
+                                                    <Typography variant="subtitle1">Phone</Typography>
+                                                </Grid>
+                                                <Grid item sm={9}>
+                                                    <Typography variant="subtitle2" className="text-muted">
+                                                        {user.phone}
+                                                    </Typography>
+                                                </Grid>
+                                            </Grid>
+                                            <hr />
+                                            <Grid container>
+                                                <Grid item sm={3}>
+                                                    <Typography variant="subtitle1">Birthdate</Typography>
+                                                </Grid>
+                                                <Grid item sm={9}>
+                                                    <Typography variant="subtitle2" className="text-muted">
+                                                        {user.role}
+                                                    </Typography>
+                                                </Grid>
+                                            </Grid>
+                                            <hr />
+                                            <Grid container>
+                                                <Grid item sm={3}>
+                                                    <Typography variant="subtitle1">Address</Typography>
+                                                </Grid>
+                                                <Grid item sm={9}>
+                                                    <Typography variant="subtitle2" className="text-muted">
+                                                        {user.address}
+                                                    </Typography>
+                                                </Grid>
+                                            </Grid>
+                                        </CardContent>
+                                    </Card>
+
+
+                                </Grid>
+                            )}
                         </Card>
                     </Grid>
-                    {user && (
-                        <Grid item lg={8}>
-                            <Card className="mb-4">
-                                <CardContent>
-                                    <Grid container>
-                                        <Grid item sm={3}>
-                                            <Typography variant="subtitle1">Full Name</Typography>
-                                        </Grid>
-                                        <Grid item sm={9}>
-                                            <Typography variant="subtitle2" className="text-muted">
-                                                {user.firstName + " " + user.lastName}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <hr />
-                                    <Grid container>
-                                        <Grid item sm={3}>
-                                            <Typography variant="subtitle1">Email</Typography>
-                                        </Grid>
-                                        <Grid item sm={9}>
-                                            <Typography variant="subtitle2" className="text-muted">
-                                                {user.email}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <hr />
-                                    <Grid container>
-                                        <Grid item sm={3}>
-                                            <Typography variant="subtitle1">Phone</Typography>
-                                        </Grid>
-                                        <Grid item sm={9}>
-                                            <Typography variant="subtitle2" className="text-muted">
-                                                {user.phone}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <hr />
-                                    <Grid container>
-                                        <Grid item sm={3}>
-                                            <Typography variant="subtitle1">Birthdate</Typography>
-                                        </Grid>
-                                        <Grid item sm={9}>
-                                            <Typography variant="subtitle2" className="text-muted">
-                                                {user.role}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <hr />
-                                    <Grid container>
-                                        <Grid item sm={3}>
-                                            <Typography variant="subtitle1">Address</Typography>
-                                        </Grid>
-                                        <Grid item sm={9}>
-                                            <Typography variant="subtitle2" className="text-muted">
-                                                {user.address}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-                                </CardContent>
-                            </Card>
 
-                            <Grid container>
-                                <Grid item md={6}>
-                                    <Card className="mb-4 mb-md-0">
-                                        <CardContent>
-                                            <Typography variant="subtitle2" className="mb-4">
-                                                <span className="text-primary font-italic me-1">assigment</span> Project Status
-                                            </Typography>
-                                            <Typography variant="subtitle2" style={{ fontSize: '.77rem' }}>
-                                                Web Design
-                                            </Typography>
-                                            <LinearProgress variant="determinate" value={80} />
-                                            <Typography variant="subtitle2" className="mt-4" style={{ fontSize: '.77rem' }}>
-                                                Website Markup
-                                            </Typography>
-                                            <LinearProgress variant="determinate" value={72} />
-                                            <Typography variant="subtitle2" className="mt-4" style={{ fontSize: '.77rem' }}>
-                                                One Page
-                                            </Typography>
-                                            <LinearProgress variant="determinate" value={89} />
-                                            <Typography variant="subtitle2" className="mt-4" style={{ fontSize: '.77rem' }}>
-                                                Mobile Template
-                                            </Typography>
-                                            <LinearProgress variant="determinate" value={55} />
-                                            <Typography variant="subtitle2" className="mt-4" style={{ fontSize: '.77rem' }}>
-                                                Backend API
-                                            </Typography>
-                                            <LinearProgress variant="determinate" value={66} />
-                                        </CardContent>
-                                    </Card>
-                                </Grid>
-
-                                <Grid item md={6}>
-                                    <Card className="mb-4 mb-md-0">
-                                        <CardContent>
-                                            <Typography variant="subtitle2" className="mb-4">
-                                                <span className="text-primary font-italic me-1">assigment</span> Project Status
-                                            </Typography>
-                                            <Typography variant="subtitle2" style={{ fontSize: '.77rem' }}>
-                                                Web Design
-                                            </Typography>
-                                            <LinearProgress variant="determinate" value={80} />
-                                            <Typography variant="subtitle2" className="mt-4" style={{ fontSize: '.77rem' }}>
-                                                Website Markup
-                                            </Typography>
-                                            <LinearProgress variant="determinate" value={72} />
-                                            <Typography variant="subtitle2" className="mt-4" style={{ fontSize: '.77rem' }}>
-                                                One Page
-                                            </Typography>
-                                            <LinearProgress variant="determinate" value={89} />
-                                            <Typography variant="subtitle2" className="mt-4" style={{ fontSize: '.77rem' }}>
-                                                Mobile Template
-                                            </Typography>
-                                            <LinearProgress variant="determinate" value={55} />
-                                            <Typography variant="subtitle2" className="mt-4" style={{ fontSize: '.77rem' }}>
-                                                Backend API
-                                            </Typography>
-                                            <LinearProgress variant="determinate" value={66} />
-                                        </CardContent>
-                                    </Card>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    )}
                 </Grid>
                 <OrderListComponent userId={decodedValue.id}></OrderListComponent>
             </Container>
@@ -284,3 +201,4 @@ export default function UserProfileComponent() {
         </div>
     );
 }
+export default UserProfileComponent;
